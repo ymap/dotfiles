@@ -1,0 +1,119 @@
+{
+  "coc.preferences.rootPatterns": [
+    ".projections.json"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "sh"
+  ],
+  "coc.source.emoji.filetypes": ["markdown", "gina-commit"],
+  "cSpell.allowCompoundWords":true,
+  "cSpell.showStatus":false,
+  "diagnostic-languageserver.debug":false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.enable": true,
+  "diagnostic-languageserver.enable": true,
+  "diagnostic-languageserver.filetypes": {
+    "php": ["parallel-lint"]
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "php": [],
+    "sh": ["shfmt"]
+  },
+  "diagnostic-languageserver.formatters": {
+    "shfmt": {
+      "command": "shfmt"
+    }
+  },
+  "diagnostic-languageserver.linters": {
+    "parallel-lint": {
+      "command": "sh",
+      "isStdout": true,
+      "isStderr": false,
+      "debounce": 1000,
+      "rootPatterns": ["composer.json", "composer.lock", "vendor", ".git"],
+      "args": ["$HOME/scripts/lint.sh", "%filepath"],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "parallel-lint",
+      "formatLines": 1,
+      "formatPatterns": [
+        "^(\\d+):(.*)$",
+        {
+           "line": 1,
+           "message": [2]
+        }
+      ]
+    }
+  },
+  "emmet.includeLanguages": {
+    "blade": "html",
+    "vue": "html"
+  },
+  "eslint.autoFixOnSave": false,
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  "explorer.quitOnOpen": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.datetime.format": "yyyy/MM/dd HH:mm:ss eee",
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "languageserver": {
+    "haskell": {
+      "command":"hie-wrapper",
+      "rootPatterns": [
+        "stack.yaml",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true
+        }
+      }
+    }
+  },
+  "intelephense.completion.maxItems": 7,
+  "intelephense.format.enable": false,
+  "stylelintplus.autoFixOnSave": true,
+  "suggest.maxCompleteItemCount": 7,
+  "suggest.triggerAfterInsertEnter": true,
+  "translator.toLang": "ja",
+  "translator.engines": ["google"],
+  "translator.window.maxHeight": 10,
+  "cSpell.userWords": [
+    "IFNULL",
+    "Jsonable",
+    "Vuex",
+    "cyclomatic",
+    "deptrac",
+    "devtool",
+    "friendsofphp",
+    "fuga",
+    "getenv",
+    "hget",
+    "hlint",
+    "hoge",
+    "hset",
+    "hset",
+    "intelephense",
+    "phpcs",
+    "phpdbg",
+    "phpmd",
+    "shfmt",
+    "smacss",
+    "sortby",
+    "vuetify"
+  ]
+}

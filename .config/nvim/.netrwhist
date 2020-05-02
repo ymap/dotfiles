@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/mamama777/atcoder'
+let g:netrw_dirhist_5='/home/mamama777'
+let g:netrw_dirhist_4='/home/mamama777/.config'
+let g:netrw_dirhist_3='/home/mamama777'
+let g:netrw_dirhist_2='/home/mamama777/intelephense'
+let g:netrw_dirhist_1='/home/mamama777'
+let g:netrw_dirhist_0='/home/mamama777/ghq'
+let g:netrw_dirhist_9='/home/mamama777/ghq/github.com'
+let g:netrw_dirhist_8='/home/mamama777/ghq/github.com/mamama777'
+let g:netrw_dirhist_7='/home/mamama777/ghq/github.com/mamama777/playground'
