@@ -1,0 +1,57 @@
+hook_add = '''
+  " Update filetype.
+  autocmd MyAutoCmd BufWritePost * nested
+  \ if &l:filetype ==# '' || exists('b:ftdetect')
+  \ |  unlet b:ftdetect
+  \ |  filetype detect
+  \ |  endif
+
+  " Reload .vimrc automatically.
+  autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim,*.toml nested source $MYVIMRC | redraw
+
+  " Auto reload VimScript.
+  autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
+  \ if &l:autoread > 0 | source <afile> |
+  \ echo 'source ' . bufname('%') |
+  \ endif
+
+  " Detect PHPUnit
+  autocmd BufWinEnter,BufNewFile */tests/*.php set filetype=php.phpunit
+
+  " Detect .dig file
+  autocmd BufWinEnter,BufNewFile */*.dig set filetype=yaml
+
+  " Detect .post file
+  autocmd BufWinEnter,BufNewFile */*.post set filetype=post
+'''
+
+[ftplugin]
+
+_ = '''
+  " Disable automatically insert comment.
+  setlocal formatoptions-=r
+  setlocal formatoptions-=o
+  setlocal formatoptions+=mMBl
+'''
+
+toml = '''
+  syntax sync minlines=500
+'''
+
+help = '''
+  setlocal iskeyword+=:
+  setlocal iskeyword+=#
+  setlocal iskeyword+=-
+'''
+
+php = '''
+  setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
+
+  " execute"
+  nnoremap <silent><buffer> <leader><CR> :<C-u>vs\|te set -x;php %;{ set + x; } 2>/dev/null;<CR>
+
+  " rector"
+  let g:rector_bin = '~/vendor/bin/rector'
+  let g:rector_config = '$HOME/.config/rector/rector.yaml'
+  nnoremap <silent><buffer><expr><leader>pr ':<C-u>!' . g:rector_bin . ' process --config=' . g:rector_config . ' %<CR>'
+'''

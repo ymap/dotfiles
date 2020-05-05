@@ -1,0 +1,92 @@
+if &compatible
+  set nocompatible
+endif
+
+function! s:source_rc(path, ...) abort
+  let use_global = get(a:000, 0, !has('vim_starting'))
+  let abspath = resolve(expand('~/.vim/rc/' . a:path))
+  if !use_global
+    execute 'source' fnameescape(abspath)
+    return
+  endif
+
+  " substitute all 'set' to 'setglobal'
+  let content = map(readfile(abspath),
+        \ 'substitute(v:val, "^\\W*\\zsset\\ze\\W", "setglobal", "")')
+  " create tempfile and source the tempfile
+  let tempfile = tempname()
+  try
+    call writefile(content, tempfile)
+    execute 'source' fnameescape(tempfile)
+  finally
+    if filereadable(tempfile)
+      call delete(tempfile)
+    endif
+  endtry
+endfunction
+
+augroup MyAutoCmd
+  autocmd!
+
+  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
+        \ call vimrc#on_filetype()
+
+  " Jump to last position on BufRead
+  autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+        \ exe "normal g`\"" | endif
+
+augroup END
+
+augroup filetypedetect
+augroup END
+
+if has('vim_starting')
+  call s:source_rc('init.rc.vim')
+endif
+
+call s:source_rc('dein.rc.vim')
+
+if has('vim_starting') && !empty(argv())
+  call vimrc#on_filetype()
+endif
+
+if !has('vim_starting')
+  call dein#call_hook('source')
+  call dein#call_hook('post_source')
+endif
+
+"---------------------------------------------------------------------------
+
+call s:source_rc('mappings.rc.vim')
+call s:source_rc('options.rc.vim')
+if has('nvim')
+  call s:source_rc('neovim.rc.vim')
+endif
+
+if IsMac()
+  call s:source_rc('mac.rc.vim')
+else
+  call s:source_rc('unix.rc.vim')
+endif
+
+"---------------------------------------------------------------------------
+
+"縦分割のガクガクを解消
+if &term =~ "xterm"
+  let &t_ti .= "\e[?69h"
+  let &t_te .= "\e[?69l"
+  let &t_CV = "\e[%i%p1%d;%p2%ds"
+endif
+
+command! JsonFormat :execute '%!python -m json.tool'
+      \ | :execute '%!python -c "import re,sys;chr=__builtins__.__dict__.get(\"unichr\", chr);sys.stdout.write(re.sub(r\"\\u[0-9a-f]{4}\", lambda x: chr(int(\"0x\" + x.group(0)[2:], 16)), sys.stdin.read()))"'
+      \ | :%s/ \+$//ge
+      \ | :set ft=javascript
+      \ | :1
+
+"---------------------------------------------------------------------------
+
+set secure
+syntax enable
+
+" vim: foldmethod=marker

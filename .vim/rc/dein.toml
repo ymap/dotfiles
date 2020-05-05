@@ -1,0 +1,159 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'AlessandroYorba/Alduin'
+merged = 0
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+hook_add = '''
+  runtime macros/sandwich/keymap/surround.vim
+'''
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'akiyan/vim-textobj-php'
+
+[[plugins]]
+repo = 'AndrewRadev/sideways.vim'
+hook_add = '''
+  nnoremap >, :SidewaysRight<CR>
+  nnoremap <, :SidewaysLef<CR>
+'''
+
+[[plugins]]
+repo = 'rickhowe/diffchar.vim'
+
+[[plugins]]
+repo = 'rickhowe/spotdiff.vim'
+
+[[plugins]]
+repo = 'ludovicchabant/vim-gutentags'
+hook_add = '''
+  let g:gutentags_modules = ['gtags_cscope']
+  let g:gutentags_project_root = ['.projections.json']
+  let g:gutentags_cache_dir = expand('~/.cache/tags')
+'''
+
+[[plugins]]
+repo = 'skywind3000/gutentags_plus'
+
+[[plugins]]
+repo = 'tpope/vim-projectionist'
+
+[[plugins]]
+repo = 'jwalton512/vim-blade'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'tyru/open-browser-github.vim'
+
+[[plugins]]
+repo = 'mhinz/vim-startify'
+hook_add = '''
+  let g:startify_list_order = [
+    \ ['🏁  セッション:'],
+    \ 'sessions',
+  \ ]
+  let g:startify_session_persistence = 1
+  let g:startify_custom_indices = ['s']
+
+  autocmd User Startified setlocal buflisted
+'''
+
+[[plugins]]
+repo = 'rhysd/git-messenger.vim'
+
+[[plugins]]
+repo = 'aperezdc/vim-template'
+hook_add = '''
+  let g:templates_directory = '~/.config/template/'
+  let g:templates_no_builtin_templates = 1
+
+  let g:templates_user_variables = [
+  \   ['NAMESPACE', 'GetNameSpace'],
+  \   ['USE', 'GetUse'],
+  \   ['EXTENDS', 'GetExtends'],
+  \ ]
+
+  function! GetNameSpace()
+    let s:composer_json_path = findfile('composer.json', '.;')
+    let s:composer_json = json_decode(readfile(s:composer_json_path))
+
+    let s:psr4_path_by_namespace = extend(
+    \   get(get(s:composer_json, 'autoload', {}), 'psr-4', {}),
+    \   get(get(s:composer_json, 'autoload-dev', {}), 'psr-4', {})
+    \ )
+
+    let s:fullpath = expand('%:p')
+    let s:basepath = fnamemodify(s:composer_json_path, ':p:h')
+
+    for [namespace, psr4_path] in items(s:psr4_path_by_namespace)
+      if (stridx(s:fullpath, s:basepath .'/' . psr4_path) != -1)
+        let s:splitted = split(s:fullpath, s:basepath . '/' . psr4_path)
+        let s:relative_path_from_psr4_path = s:splitted[0]
+        let s:relative_dir_from_psr4_path = fnamemodify(s:relative_path_from_psr4_path, ':h')
+        if (s:relative_dir_from_psr4_path == '.' || s:relative_dir_from_psr4_path == '/')
+          let s:replacedNamespace = substitute(namespace, '\', '\\\\', 'g')
+          echom s:replacedNamespace
+          return trim(s:replacedNamespace, '\')
+        endif
+        return namespace . '\' . substitute(s:relative_dir_from_psr4_path, '/', '\\\', 'g')
+      endif
+    endfor
+
+    return ''
+  endfunction
+
+  function! GetExtends()
+    let s:composer_json_path = findfile('composer.json', '.;')
+    let s:fullpath = expand('%:p')
+    let s:basepath = fnamemodify(s:composer_json_path, ':p:h')
+
+    if (stridx(s:fullpath, s:basepath . '/tests') != -1)
+      return ' extends TestCase'
+    endif
+
+    return ''
+  endfunction
+
+  function! GetUse()
+    let s:composer_json_path = findfile('composer.json', '.;')
+    let s:fullpath = expand('%:p')
+    let s:basepath = fnamemodify(s:composer_json_path, ':p:h')
+
+    if (stridx(s:fullpath, s:basepath . '/tests') != -1)
+      return 'use PHPUnit\\Framework\\TestCase;'
+    endif
+
+    return ''
+  endfunction
+'''
+
+[[plugins]]
+repo = 'TaDaa/vimade'
+hook_add = '''
+  let g:vimade = {
+  \   "fadelevel": 0.85
+  \ }
+'''
+
+[[plugins]]
+repo = 'tpope/vim-abolish'
+
+[[plugins]]
+repo = 'delphinus/vim-auto-cursorline'
+
+[[plugins]]
+repo = 'mechatroner/rainbow_csv'
+
+[[plugins]]
+repo = 'psliwka/vim-smoothie'
+hook_add = '''
+  let g:smoothie_base_speed = 17
+'''

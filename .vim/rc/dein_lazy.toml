@@ -1,0 +1,693 @@
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+on_cmd = 'Defx'
+hook_add = '''
+  nnoremap <silent> <C-E> :<C-u>Defx `expand('%:p:h')` -search=`expand('%:p')` -buffer-name=explorer -split=vertical -winwidth=45 -direction=topleft -toggle -columns=git:indent:filename:type<CR>
+
+  " Set Defx as default explorer
+  autocmd BufEnter,VimEnter,BufNew,BufWinEnter,BufRead,BufCreate
+    \ * call s:browse_check(expand('<amatch>'))
+
+  function! s:browse_check(path) abort
+    if a:path == '' || bufnr('%') != expand('<abuf>')
+      return
+    endif
+
+    let path = a:path
+    if fnamemodify(path, ':t') ==# '~'
+      let path = '~'
+    endif
+
+    if &filetype ==# 'defx' && line('$') != 1
+      return
+    endif
+
+    if isdirectory(expand(path))
+      call defx#util#call_defx('Defx', path)
+    endif
+  endfunction
+'''
+
+[plugins.ftplugin]
+defx = '''
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#is_directory() ?
+  \ defx#do_action('open') :
+  \ defx#do_action('multi', ['drop', 'quit'])
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#is_directory() ?
+  \ defx#do_action('open') :
+  \ defx#do_action('multi', ['drop', 'quit'])
+  nnoremap <silent><buffer><expr> E
+  \ defx#is_directory() ?
+  \ defx#do_action('open') :
+  \ defx#do_action('multi', ['open', 'vsplit', 'quit'])
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+  \ defx#do_action('toggle_columns',
+    \                'mark:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S
+  \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
+'''
+
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+on_cmd = 'Denite'
+hook_source = 'source ~/.vim/rc/plugins/denite.rc.vim'
+hook_add = '''
+  nnoremap <silent> <Leader>b  :<C-u>Denite buffer<CR>
+  nnoremap <silent> <Leader>G :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> <Leader>h :<C-u>Denite help<CR>
+  nnoremap <silent> <Leader>l :<C-u>Denite line<CR>
+  nnoremap <silent> <Leader>s :<C-u>Denite session<CR>
+  nnoremap <silent> <Leader>v :<C-u>Denite file/rec:~/.vim/rc<CR>
+  nnoremap <silent> <Leader>ff :<C-u>Denite file/rec<CR>
+  nnoremap <silent> <Leader>ft :<C-u>Denite filetype<CR>
+  nnoremap <silent> <Leader>fv :<C-u>Denite file/rec:./vendor<CR>
+  nnoremap <silent> <Leader>gh :<C-u>Denite ghq -default-action=cd<CR>
+  nnoremap <silent> <Leader>gr :<C-u>Denite grep -buffer-name=search-buffer-denite -no-empty<CR>
+'''
+
+[plugins.ftplugin]
+denite = '''
+  nnoremap <silent><buffer><expr> <CR>
+  \  denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <Tab>
+  \  denite#do_map('choose_action')
+  nnoremap <silent><buffer><expr> a
+  \  denite#do_map('do_action', 'add')
+  nnoremap <silent><buffer><expr> d
+  \  denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \  denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> r
+  \  denite#do_map('do_action', 'reset')
+  nnoremap <silent><buffer><expr> s
+  \  denite#do_map('do_action', 'split')
+  nnoremap <silent><buffer><expr> vs
+  \  denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> q
+  \  denite#do_map('quit')
+  nnoremap <silent><buffer><expr> <C-c>
+  \  denite#do_map('quit')
+  nnoremap <silent><buffer><expr> '
+  \  denite#do_map('quick_move')
+  nnoremap <silent><buffer><expr> i
+  \  denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \  denite#do_map('toggle_select').'j'
+'''
+
+denite-filter = '''
+  nmap <silent><buffer> <C-c> <Plug>(denite_filter_update)
+  imap <silent><buffer> <C-o> <Plug>(denite_filter_update)
+'''
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_event = 'TextYankPost'
+on_source = ['denite.nvim']
+hook_add = '''
+  nnoremap <silent> <Leader>r :<C-u>Denite -buffer-name=register register neoyank<CR>
+  xnoremap <silent> <Leader>r :<C-u>Denite -buffer-name=register -default-action=replace register neoyank<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/junkfile.vim'
+on_source = ['denite.nvim']
+hook_add = '''
+  nnoremap <silent> <leader>jt  :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.txt'))<CR>
+  nnoremap <silent> <leader>jm  :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.md'))<CR>
+  nnoremap <silent> <leader>jph :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.php'))<CR>
+  nnoremap <silent> <leader>jpo :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.post'))<CR>
+  nnoremap <silent> <leader>jv :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.vim'))<CR>
+  nnoremap <silent> <leader>jl :<C-u>Denite junkfile junkfile:new<CR>
+'''
+
+[[plugins]]
+repo = 'neoclide/coc-denite'
+on_source = ['denite.nvim']
+hook_add = '''
+  nnoremap <silent> <Leader>e :<C-u>Denite coc-diagnostic<CR>
+  nnoremap <silent> <Leader>o :<C-u>Denite coc-symbols<CR>
+'''
+
+[[plugins]]
+repo = 'neoclide/denite-git'
+on_source = ['denite.nvim']
+hook_add = '''
+  nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus<CR>
+  nnoremap <silent> <Leader>gl :<C-u>Denite gitlog<CR>
+  nnoremap <silent> <Leader>gb :<C-u>Denite gitbranch<CR>
+  nnoremap <silent> <Leader>gc :<C-u>Denite gitchanged<CR>
+'''
+
+[[plugins]]
+repo = 'Jagua/vim-denite-ghq'
+on_source = ['denite.nvim']
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+on_source = ['denite.nvim']
+hook_add = '''
+  nnoremap <silent> <leader>s :<C-u>Deol bash -no-start-insert<CR>
+'''
+
+[[plugins]]
+repo = 'tobyS/pdv'
+depends  = 'vmustache'
+on_ft = 'php'
+hook_source = '''
+  nnoremap <silent> <leader>p :<C-u>call pdv#DocumentCurrentLine()<CR>
+'''
+
+[plugins.ftplugin]
+php = '''
+  let g:pdv_template_dir = $HOME . "/.config/pdv/templates/source"
+'''
+
+phpunit = '''
+  let g:pdv_template_dir = $HOME . "/.config/pdv/templates/test"
+'''
+
+[[plugins]]
+repo = 'tobyS/vmustache'
+on_source = 'pdv'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+on_if = 1
+hook_source = '''
+	set laststatus=2
+	let g:lightline = {
+	\ 'colorscheme': 'wombat',
+	\ 'tabline': {
+	\ 	'left' :[
+	\ 		['tabs'],
+	\ 	],
+	\ 	'right' :[
+	\ 		['pimodoro'],
+	\ 	]
+	\  },
+	\ 'tab': {
+	\ 	'active' :['fullpath', 'modified'],
+	\ 	'inactive' :['fullpath', 'modified'],
+	\  },
+	\ 'tab_component_function' :{
+	\ 	'modified': 'lightline#tab#modified',
+	\ 	'fullpath': 'LightlineFullpath'
+	\  },
+	\ 'active': {
+	\ 	'left' :[
+	\ 		['mode', 'paste'],
+	\ 		['gitbranch', 'readonly', 'filename', 'modified', 'anzu'],
+	\ 		['cocstatus'],
+	\ 		['gitNumStat'],
+	\ 	],
+	\ 	'right' :[
+ 	\ 		['percent'],
+	\ 		['fileformat', 'fileencoding'],
+	\ 		['filetype'],
+	\ 	]
+	\  },
+	\ 'inactive': {
+	\ 	'left' :[
+	\ 		['mode', 'paste'],
+	\ 		['gitbranch', 'readonly', 'filename', 'modified'],
+	\ 	]
+	\  },
+	\ 'component': {
+	\   'separator': '',
+	\ },
+	\ 'component_function': {
+	\   'anzu': 'anzu#search_status',
+	\   'cocstatus': 'LightlineCocStatus',
+	\   'readonly': 'LightlineReadonly',
+	\   'gitbranch': 'LightlineGit',
+	\ 	'filetype': 'LightlineFiletype',
+	\ 	'gitNumStat': 'LightlineNumStat',
+	\   'pimodoro': 'pim#get',
+	\ },
+	\ 'component_type': {
+	\   'buffercurrent': 'tabsel',
+	\   'bufferbefore': 'tabsel',
+	\   'bufferafter': 'tabsel',
+	\ },
+	\}
+	function!  LightlineFullpath(count)
+		return expand("%:p")
+	endfunction
+
+	function! LightlineFiletype() 
+		return &filetype
+	endfunction
+
+	function!  LightlineReadonly()
+		return &readonly ? '' : ''
+	endfunction
+
+	function! LightlineGit()
+		let branch = gina#component#repo#branch()
+		return branch !=# '' ? ' '.branch : ''
+	endfunction
+
+	let s:gitNumStat = ''
+	function! LightlineGitNumStat()
+		return s:gitNumStat
+	endfunction
+
+	autocmd MyAutoCmd VimEnter,BufWritePost,DirChanged * call LightlineGitNumStatChange()
+	function! LightlineGitNumStatChange()
+		let s:gitNumStat = ''
+		let job = jobstart("git diff --stat HEAD | tail -n 1 | tr -d '\n'", {'on_stdout':function('LightlineGitNumStatHandler')})
+	endfunction
+
+	function! LightlineGitNumStatHandler(job_id, data, event)dict
+		let l:joined = join(a:data)
+		if (l:joined != '')
+			let s:gitNumStat = join(a:data)
+		endif
+	endfunction
+
+	autocmd MyAutoCmd VimEnter * nested call LightlineColorChange()
+	function! LightlineColorChange()
+		let s:palette = g:lightline#colorscheme#wombat#palette
+		let s:palette.tabline.tabsel = [ [ '#d0d0d0', '#5f8787', 252, 66, 'bold' ] ]
+		unlet s:palette
+	endfunction
+'''
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+on_source = ['lightline.vim']
+
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+on_ft = 'qf'
+on_cmd = 'Qfreplace'
+
+[plugins.ftplugin]
+qf = '''
+  nnoremap <silent><buffer> r :<C-u>Qreplace<CR>
+'''
+
+qfreplace = '''
+  setlocal nofoldenable
+'''
+
+[[plugins]]
+repo = 'adoy/vim-php-refactoring-toolbox'
+on_ft = ['php']
+hook_add = '''
+  let g:vim_php_refactoring_default_property_visibility = 'private'
+  let g:vim_php_refactoring_default_method_visibility = 'private'
+  let g:vim_php_refactoring_make_setter_fluent = 0
+  let g:vim_php_refactoring_use_default_mapping = 0
+'''
+
+[plugins.ftplugin]
+php = '''
+	nnoremap <silent><buffer> <leader>rlv :call PhpRenameLocalVariable()<CR>
+	nnoremap <silent><buffer> <leader>rcv :call PhpRenameClassVariable()<CR>
+	nnoremap <silent><buffer> <leader>eu  :call PhpExtractUse()<CR>
+	nnoremap <silent><buffer> <leader>rm  :call PhpRenameMethod()<CR>
+	vnoremap <silent><buffer> <leader>ec  :call PhpExtractConst()<CR>
+	nnoremap <silent><buffer> <leader>ep  :call PhpExtractClassProperty()<CR>
+	vnoremap <silent><buffer> <leader>em  :call PhpExtractMethod()<CR>
+	nnoremap <silent><buffer> <leader>np  :call PhpCreateProperty()<CR><C-r><C-w>
+	nnoremap <silent><buffer> <leader>cog :call PhpCreateGetters()<CR>
+'''
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+depends = ['vim-projectionist']
+on_ft = ['php', 'typescript']
+hook_source = '''
+	let g:ale_linters = {}
+	let g:ale_fixers = {
+	\ 'php': ['php_cs_fixer'],
+	\ 'typescript': ['eslint']
+	\ }
+	autocmd User ProjectionistDetect
+	  \ let b:ale_php_cs_fixer_executable = './vendor/bin/php-cs-fixer fix -- --working-dir=' . projectionist#path()
+'''
+
+[plugins.ftplugin]
+php = '''
+	autocmd User ProjectionistDetect
+	  \ let b:ale_fix_on_save = expand('%:p') =~ '\v^' . projectionist#path() . '/(src|packages|app|tests)/'
+'''
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+if = '''executable('node') && executable('yarn')'''
+build = './install.sh nightly'
+hook_add = '''
+  let g:coc_global_extensions = [
+  \ "coc-actions",
+  \ "coc-css",
+  \ "coc-diagnostic",
+  \ "coc-emmet",
+  \ "coc-emoji",
+  \ "coc-eslint",
+  \ "coc-explorer",
+  \ "coc-html",
+  \ "coc-json",
+  \ "coc-markdownlint",
+  \ "coc-marketplace",
+  \ "coc-pairs",
+  \ "coc-phpls",
+  \ "coc-post",
+  \ "coc-sh",
+  \ "coc-snippets",
+  \ "coc-spell-checker",
+  \ "coc-stylelintplus",
+  \ "coc-tabnine",
+  \ "coc-translator",
+  \ "coc-tsserver",
+  \ "coc-vetur",
+  \ "https://github.com/h4kst3r/php-awesome-snippets",
+  \ ]
+
+  let g:coc_filetype_map = {
+  \ 'php.phpunit': 'php'
+  \ }
+
+  function! GoToDefinition() abort
+    if CocAction('jumpDefinition')
+	  return v:true
+	endif
+
+	execute("silent! tag " . expand("<cword>"))
+  endfunction
+
+  xnoremap <silent> <leader>a  :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+  nnoremap <silent> <leader>a  :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+  nnoremap <silent> <leader>e  :<C-u>CocCommand explorer<CR>
+  nnoremap <silent> <C-]>      :<C-u>call GoToDefinition()<CR>
+  nnoremap <silent> <C-w><C-]> :call CocAction('jumpDefinition', 'vsplit')<CR>
+  nmap     <silent> <C-[>      <Plug>(coc-references)
+  nnoremap <silent> <leader>ch :<C-u>call CocActionAsync('doHover')<CR>
+  nmap     <silent> <leader>cr <Plug>(coc-refactor)
+  nmap     <silent> <leader>cn <Plug>(coc-rename)
+  nmap     <silent> <leader>cd <Plug>(coc-declaration)
+  nmap     <silent> <leader>ct <Plug>(coc-type-definition)
+  nmap     <silent> <leader>ci <Plug>(coc-implementation)
+  nnoremap <silent> <leader>cs :<C-u>CocList -I symbols<CR>
+  nmap     <silent> <C-t>      <Plug>(coc-translator-p)
+  vnoremap <silent> <C-t>      "zy:CocCommand translator.popup <C-r>z<CR>
+
+  inoremap <silent><expr> <TAB>
+    \ pumvisible() ? coc#_select_confirm() :
+	\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump', ''])\<CR>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+	return !col || getline('.')[col - 1] =~# '\s'
+  endfunction
+
+  let g:coc_snippet_next = '<tab>'
+'''
+hook_source = '''
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+'''
+
+[plugins.ftplugin]
+post = '''
+  set syntax=yaml
+  nmap <silent><buffer> <leader><leader> :<C-u>CocCommand post.do<CR>
+'''
+
+log = '''
+  set syntax=yaml
+'''
+
+[[plugins]]
+repo = 'typewriter/zenrei.vim'
+on_cmd = 'Zenrei'
+hook_add = '''
+  nnoremap <Leader>zw :<C-u>Zenrei 
+  nnoremap <Leader>zs :<C-u>ZenreiSynonym 
+'''
+
+[[plugins]]
+repo = 'mbbill/undotree'
+on_cmd = 'UndotreeToggle'
+hook_add = '''
+  nnoremap <silent> U :UndotreeToggle<CR>
+  let g:undotree_WindowLayout = 2
+  let g:undotree_ShortIndicators = 1
+  let g:undotree_SetFocusWhenToggle = 1
+'''
+
+[[plugins]]
+repo = 'rbgrouleff/bclose.vim'
+on_cmd = 'Bclose'
+hook_add = '''
+   noremap <silent> <Leader>d :Bclose!<CR>
+'''
+
+[[plugins]]
+repo = 'iberianpig/tig-explorer.vim'
+on_cmd = ['Tig', 'TigBlame']
+hook_add = '''
+   nnoremap <silent> <Leader>TT :Tig<CR>
+   nnoremap <silent> <Leader>TB :TigBlame<CR>
+   nnoremap <silent> <Leader>TS :Tig status<CR>
+   nnoremap <silent> <Leader>TL :Tig log <C-R>=expand('%:p')<CR><CR>
+   nnoremap <silent> <Leader>TD :Tig diff HEAD <C-R>=expand('%:p')<CR><CR>
+'''
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+hook_source = '''
+  let g:vim_json_syntax_conceal = 0
+'''
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+on_cmd = 'help'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+on_map = {nx = '<Plug>'}
+hook_add = '''
+  nmap <C-q> <Plug>(caw:zeropos:toggle)
+  xmap <C-q> <Plug>(caw:zeropos:toggle)
+'''
+
+[[plugins]]
+on_cmd = 'Capture'
+repo = 'tyru/capture.vim'
+
+# [[plugins]]
+# repo = 'simeji/winresizer'
+# on_map = {n = '<C-w>w'}
+# hook_add = '''
+#   let g:winresizer_start_key = '<C-w>w'
+# '''
+
+[[plugins]]
+repo = 'alvan/vim-php-manual'
+on_ft = 'php'
+hook_add = '''
+  let g:php_manual_online_search_shortcut = 'H'
+'''
+
+[[plugins]]
+repo = 'rcmdnk/vim-markdown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'lambdalisue/vim-findent'
+on_cmd = 'Findent'
+
+[[plugins]]
+repo = 'janko/vim-test'
+on_ft = 'php'
+depends = ['vim-dispatch', 'vim-compiler-phpunit']
+hook_add = '''
+  nnoremap <silent> <leader>t  <NOP>
+  nnoremap <silent> <leader>ta :TestFile<CR>
+  nnoremap <silent> <leader>tm :TestNearest<CR>
+  nnoremap <silent> <leader>tc :!nohup sh -c 'phpdbg -qrr ./vendor/bin/phpunit --coverage-html ~/.cache/phpunit/report;open ~/.cache/phpunit/report/index.html' &<CR>
+'''
+hook_source = '''
+  let g:test#strategy = 'dispatch'
+'''
+hook_post_source = '''
+  let g:test#php#patterns = {
+  \ 'test':      ['\v^\s*public function (.*)\('],
+  \ 'namespace': [],
+  \ }
+'''
+
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+hook_source = '''
+  let g:dispatch_no_maps = 1
+  let g:dispatch_compilers = {
+  \ './vendor/bin/phpunit': 'phpunit'
+  \ }
+'''
+
+[[plugins]]
+repo = 'haginaga/vim-compiler-phpunit'
+
+[[plugins]]
+repo = 'liuchengxu/vim-which-key'
+on_cmd = 'WhichKey'
+hook_add = '''
+  nnoremap <silent> <leader> :<C-u>WhichKey '<Space>'<CR>
+  vnoremap <silent> <leader> :<C-u>WhichKeyVisual '<Space>'<CR>
+ 
+ let g:which_key_align_by_separator = 1
+ let g:which_key_use_floating_win = 1
+ let g:which_key_floating_relative_win = 1
+ let g:which_key_timeout = 0
+'''
+
+[[plugins]]
+repo = 'phpactor/phpactor'
+on_ft = 'php'
+build = 'composer install'
+hook_add = '''
+  function! PhpactorMoveDir(sourceDir, destDir) abort
+    let sourceDir = trim(a:sourceDir, '/') . '/'
+	let destDir = trim(a:destDir, '/') . '/'
+	let files = split(glob(sourceDir . '*'))
+	for file in files
+	  if fnamemodify(file, ':e') == 'php'
+	    call phpactor#rpc(
+          \ "move_class",
+				\ { "source_path": file, "dest_path": destDir . fnamemodify(file, ':tr'), "confirmed": 1 })
+	  else
+	    call PhpactorMoveDir(file, destDir . fnamemodify(file, ':te'))
+	  endif
+	endfor
+  endfunction
+
+  function! PhpactorCopyDir(sourceDir, destDir) abort
+    let sourceDir = trim(a:sourceDir, '/') . '/'
+	let destDir = trim(a:destDir, '/') . '/'
+	let files = split(glob(sourceDir . '*'))
+	for file in files
+	  if fnamemodify(file, ':e') == 'php'
+	    call phpactor#rpc(
+          \ "copy_class",
+				\ { "source_path": file, "dest_path": destDir . fnamemodify(file, ':tr') })
+	  else
+	    call PhpactorCopyDir(file, destDir . fnamemodify(file, ':te'))
+	  endif
+	endfor
+  endfunction
+'''
+
+[plugins.ftplugin]
+php = '''
+  nnoremap <silent><buffer> <leader><leader> :<C-u>call phpactor#ContextMenu()<CR>
+  nnoremap <silent><buffer> <leader>pm :<C-u>call phpactor#MoveFile()<CR>
+  nnoremap <silent><buffer> <leader>pt :<C-u>call phpactor#Transform()<CR>
+'''
+
+[[plugins]]
+repo = 'blindFS/vim-taskwarrior'
+on_cmd = ['TW']
+
+[[plugins]]
+repo = 'camspiers/animate.vim'
+on_source = 'lens.vim'
+on_func = 'animate#'
+hook_add = '''
+  nnoremap <silent> <C-k> :call animate#window_delta_height(10)<CR>
+  nnoremap <silent> <C-j> :call animate#window_delta_height(-10)<CR>
+  nnoremap <silent> <C-h> :call animate#window_delta_width(10)<CR>
+  nnoremap <silent> <C-l> :call animate#window_delta_width(-10)<CR>
+  let g:animate#distribute_space = 0
+  let g:animate#duration = 75.0
+'''
+
+[[plugins]]
+repo = 'camspiers/lens.vim'
+depends = 'animate.vim'
+on_if = 1
+hook_add = '''
+  let g:lens#disabled_filetypes = [
+  \ 'denite',
+  \ 'denite-filter',
+  \ 'defx',
+  \ 'undotree'
+  \ ]
+'''
+hook_post_source = '''
+  call lens#run()
+'''
+
+[[plugins]]
+repo = 'rbong/pimodoro'
+on_source = 'lightline.vim'
+hook_add = '''
+  let g:pim#taskfile = '~/.config/pimodoro.txt'
+'''
