@@ -27,3 +27,4 @@ fi
 
 ln -s "$DOTFILES_REPOSITORY_DIR/.vim" "$HOME/.vim"
 ln -s "$DOTFILES_REPOSITORY_DIR/.config" "$HOME/.config"
+ln -s "$DOTFILES_REPOSITORY_DIR/.gitconfig" "$HOME/.gitconfig"
