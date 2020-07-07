@@ -153,6 +153,7 @@ set splitright
 " Set minimal height for current window.
 " set winheight=1
 " Set maximam maximam command line window.
+set cmdheight=2
 set cmdwinheight=5
 
 " Adjust window size of preview and help.
