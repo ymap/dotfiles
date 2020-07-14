@@ -414,6 +414,7 @@ hook_add = '''
   \ "coc-phpls",
   \ "coc-post",
   \ "coc-sh",
+  \ "coc-solargraph",
   \ "coc-snippets",
   \ "coc-spell-checker",
   \ "coc-stylelintplus",
