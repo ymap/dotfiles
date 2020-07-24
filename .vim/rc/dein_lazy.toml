@@ -587,3 +587,10 @@ hook_post_source = '''
 [[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ['ruby', 'eruby']
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_ft = ['ruby', 'sh', 'vim']
+hook_add = '''
+  imap <C-j> <CR>
+'''
