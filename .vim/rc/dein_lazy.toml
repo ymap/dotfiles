@@ -692,3 +692,7 @@ on_source = 'lightline.vim'
 hook_add = '''
   let g:pim#taskfile = '~/.config/pimodoro.txt'
 '''
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = ['ruby', 'eruby']
