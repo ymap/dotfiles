@@ -647,10 +647,6 @@ php = '''
 '''
 
 [[plugins]]
-repo = 'blindFS/vim-taskwarrior'
-on_cmd = ['TW']
-
-[[plugins]]
 repo = 'camspiers/animate.vim'
 on_source = 'lens.vim'
 on_func = 'animate#'
