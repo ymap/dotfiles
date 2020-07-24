@@ -47,7 +47,8 @@
   },
   "emmet.includeLanguages": {
     "blade": "html",
-    "vue": "html"
+    "vue": "html",
+    "eruby": "html"
   },
   "eslint.autoFixOnSave": false,
   "eslint.filetypes": [
