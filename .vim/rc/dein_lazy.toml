@@ -240,9 +240,6 @@ hook_source = '''
 	\ 	'left' :[
 	\ 		['tabs'],
 	\ 	],
-	\ 	'right' :[
-	\ 		['pimodoro'],
-	\ 	]
 	\  },
 	\ 'tab': {
 	\ 	'active' :['fullpath', 'modified'],
@@ -281,7 +278,6 @@ hook_source = '''
 	\   'gitbranch': 'LightlineGit',
 	\ 	'filetype': 'LightlineFiletype',
 	\ 	'gitNumStat': 'LightlineNumStat',
-	\   'pimodoro': 'pim#get',
 	\ },
 	\ 'component_type': {
 	\   'buffercurrent': 'tabsel',
@@ -673,13 +669,6 @@ hook_add = '''
 '''
 hook_post_source = '''
   call lens#run()
-'''
-
-[[plugins]]
-repo = 'rbong/pimodoro'
-on_source = 'lightline.vim'
-hook_add = '''
-  let g:pim#taskfile = '~/.config/pimodoro.txt'
 '''
 
 [[plugins]]
