@@ -543,13 +543,6 @@ hook_add = '''
 on_cmd = 'Capture'
 repo = 'tyru/capture.vim'
 
-# [[plugins]]
-# repo = 'simeji/winresizer'
-# on_map = {n = '<C-w>w'}
-# hook_add = '''
-#   let g:winresizer_start_key = '<C-w>w'
-# '''
-
 [[plugins]]
 repo = 'alvan/vim-php-manual'
 on_ft = 'php'
