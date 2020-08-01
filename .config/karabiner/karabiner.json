@@ -96,7 +96,7 @@
             "simple_modifications": [
                 {
                     "from": {
-                        "key_code": "japanese_pc_nfer"
+                        "key_code": "japanese_pc_xfer"
                     },
                     "to": {
                         "key_code": "return_or_enter"
