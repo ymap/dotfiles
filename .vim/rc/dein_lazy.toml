@@ -372,13 +372,15 @@ php = '''
 [[plugins]]
 repo = 'dense-analysis/ale'
 depends = ['vim-projectionist']
-on_ft = ['php', 'typescript']
+on_ft = ['php', 'typescript', 'ruby']
 hook_source = '''
 	let g:ale_linters = {}
 	let g:ale_fixers = {
 	\ 'php': ['php_cs_fixer'],
-	\ 'typescript': ['eslint']
+	\ 'typescript': ['eslint'],
+	\ 'ruby': ['rubocop']
 	\ }
+
 	autocmd User ProjectionistDetect
 	  \ let b:ale_php_cs_fixer_executable = './vendor/bin/php-cs-fixer fix -- --working-dir=' . projectionist#path()
 '''
@@ -387,6 +389,13 @@ hook_source = '''
 php = '''
 	autocmd User ProjectionistDetect
 	  \ let b:ale_fix_on_save = expand('%:p') =~ '\v^' . projectionist#path() . '/(src|packages|app|tests)/'
+'''
+
+ruby = '''
+  autocmd User ProjectionistDetect
+    \ let b:ale_ruby_rubocop_executable = projectionist#path() . '/bin/rubocop'
+
+  let b:ale_fix_on_save = 1
 '''
 
 [[plugins]]
