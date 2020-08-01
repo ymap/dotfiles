@@ -608,3 +608,8 @@ hook_add = '''
 repo = 'iamcco/markdown-preview.nvim'
 on_ft = 'markdown'
 build = 'sh -c "cd app & yarn install"'
+
+[[plugins]]
+repo = 'tpope/vim-dadbod'
+on_cmd = 'DB'
+
