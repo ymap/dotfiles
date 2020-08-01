@@ -88,6 +88,8 @@
                     }
                 ]
             },
+            "devices": [],
+            "fn_function_keys": [],
             "name": "Default profile",
             "parameters": {
                 "delay_milliseconds_before_open_device": 1000
@@ -102,7 +104,11 @@
                         "key_code": "return_or_enter"
                     }
                 }
-            ]
+            ],
+            "virtual_hid_keyboard": {
+                "country_code": 0,
+                "mouse_key_xy_scale": 100
+            }
         }
     ]
 }
