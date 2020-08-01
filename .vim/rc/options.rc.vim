@@ -182,3 +182,5 @@ set colorcolumn=120
 " Force wrap
 set wrap
 autocmd MyAutoCmd VimEnter,FilterWritePost * if &diff | setlocal wrap | endif
+
+set nofoldenable
