@@ -613,3 +613,6 @@ build = 'sh -c "cd app & yarn install"'
 repo = 'tpope/vim-dadbod'
 on_cmd = 'DB'
 
+[[plugins]]
+repo = 'danchoi/ri.vim'
+on_ft = ['ruby', 'eruby']
