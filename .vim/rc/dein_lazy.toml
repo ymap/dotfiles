@@ -620,3 +620,7 @@ on_ft = ['ruby', 'eruby']
 [[plugins]]
 repo = 'rhysd/vim-textobj-ruby'
 on_ft = ['ruby', 'eruby']
+
+[[plugins]]
+repo = 'whatyouhide/vim-textobj-erb'
+on_ft = ['eruby']
