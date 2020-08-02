@@ -616,3 +616,7 @@ on_cmd = 'DB'
 [[plugins]]
 repo = 'danchoi/ri.vim'
 on_ft = ['ruby', 'eruby']
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+on_ft = ['ruby', 'eruby']
