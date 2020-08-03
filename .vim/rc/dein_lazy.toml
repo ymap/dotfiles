@@ -175,6 +175,7 @@ hook_add = '''
   nnoremap <silent> <leader>jm  :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.md'))<CR>
   nnoremap <silent> <leader>jph :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.php'))<CR>
   nnoremap <silent> <leader>jpo :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.post'))<CR>
+  nnoremap <silent> <leader>js  :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.sql'))<CR>
   nnoremap <silent> <leader>jv :<C-u>call junkfile#open_immediately(strftime('%Y-%m-%d-%H%M%S.vim'))<CR>
   nnoremap <silent> <leader>jl :<C-u>Denite junkfile junkfile:new<CR>
 '''
