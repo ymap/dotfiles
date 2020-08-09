@@ -484,6 +484,7 @@ depends = ['vim-dispatch', 'vim-compiler-phpunit']
 hook_add = '''
   nnoremap <silent> <leader>t  <NOP>
   nnoremap <silent> <leader>ta :TestFile<CR>
+  nnoremap <silent> <leader>tl :TestLast<CR>
   nnoremap <silent> <leader>tm :TestNearest<CR>
   nnoremap <silent> <leader>tc :!nohup sh -c 'phpdbg -qrr ./vendor/bin/phpunit --coverage-html ~/.cache/phpunit/report;open ~/.cache/phpunit/report/index.html' &<CR>
 '''
