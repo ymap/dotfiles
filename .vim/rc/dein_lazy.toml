@@ -202,6 +202,10 @@ repo = 'Jagua/vim-denite-ghq'
 on_source = ['denite.nvim']
 
 [[plugins]]
+repo = 'ozelentok/denite-gtags'
+on_source = ['denite.nvim']
+
+[[plugins]]
 repo = 'Shougo/deol.nvim'
 on_source = ['denite.nvim']
 hook_add = '''
