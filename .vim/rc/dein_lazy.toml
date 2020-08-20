@@ -184,7 +184,6 @@ hook_add = '''
 repo = 'neoclide/coc-denite'
 on_source = ['denite.nvim']
 hook_add = '''
-  nnoremap <silent> <Leader>e :<C-u>Denite coc-diagnostic<CR>
   nnoremap <silent> <Leader>o :<C-u>Denite coc-symbols<CR>
 '''
 
