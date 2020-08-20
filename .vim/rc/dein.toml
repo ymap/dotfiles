@@ -199,10 +199,10 @@ hook_add = '''
 
   function! GoToDefinition() abort
     if CocAction('jumpDefinition')
-	  return v:true
-	endif
+      return v:true
+    endif
 
-	execute("silent! tag " . expand("<cword>"))
+    execute("DeniteCursorWord gtags_def -immediately-1 -no-empty")
   endfunction
 
   xnoremap <silent> <leader>a  :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
