@@ -255,3 +255,6 @@ ruby_eruby = '''
   let b:AutoPairs['<%'] = '%>'
   let b:AutoPairs['<%='] = '%>'
 '''
+
+[[plugins]]
+repo = 'bronson/vim-visual-star-search'
