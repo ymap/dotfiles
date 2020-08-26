@@ -599,6 +599,10 @@ hook_post_source = '''
 '''
 
 [[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = ['ruby', 'eruby']
+
+[[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ['ruby', 'eruby']
 
