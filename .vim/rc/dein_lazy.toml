@@ -611,6 +611,8 @@ repo = 'tpope/vim-endwise'
 on_ft = ['ruby', 'sh', 'vim']
 hook_add = '''
   imap <C-j> <CR>
+
+  let g:endwise_abbreviations = 1
 '''
 
 [[plugins]]
