@@ -643,3 +643,7 @@ on_ft = ['ruby', 'eruby']
 [[plugins]]
 repo = 'whatyouhide/vim-textobj-erb'
 on_ft = ['eruby']
+
+[[plugins]]
+repo = 'vim-scripts/dbext.vim'
+on_i = 1
