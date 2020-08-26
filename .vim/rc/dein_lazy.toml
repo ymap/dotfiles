@@ -503,6 +503,7 @@ hook_post_source = '''
 
 [[plugins]]
 repo = 'tpope/vim-dispatch'
+on_source = 'vim-dadbod'
 hook_source = '''
   let g:dispatch_no_maps = 1
   let g:dispatch_compilers = {
@@ -622,7 +623,14 @@ build = 'sh -c "cd app & yarn install"'
 
 [[plugins]]
 repo = 'tpope/vim-dadbod'
+on_source = 'vim-dadbod-ui'
+depends = 'vim-dispatch'
 on_cmd = 'DB'
+
+[[plugins]]
+repo = 'kristijanhusak/vim-dadbod-ui'
+depends = 'vim-dadbod'
+on_cmd = 'DBUI'
 
 [[plugins]]
 repo = 'danchoi/ri.vim'
