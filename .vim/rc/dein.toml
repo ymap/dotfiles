@@ -176,7 +176,6 @@ hook_add = '''
   \ "coc-json",
   \ "coc-markdownlint",
   \ "coc-marketplace",
-  \ "coc-pairs",
   \ "coc-phpls",
   \ "coc-post",
   \ "coc-sh",
@@ -244,4 +243,15 @@ post = '''
 
 log = '''
   set syntax=yaml
+'''
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
+
+[plugins.ftplugin]
+ruby_eruby = '''
+  let b:AutoPairs = g:AutoPairs
+  let b:AutoPairs['|'] = '|'
+  let b:AutoPairs['<%'] = '%>'
+  let b:AutoPairs['<%='] = '%>'
 '''
