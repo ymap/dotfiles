@@ -139,7 +139,8 @@ hook_add = '''
 repo = 'TaDaa/vimade'
 hook_add = '''
   let g:vimade = {
-  \   "fadelevel": 0.85
+  \  "fadelevel": 0.85,
+  \  "detecttermcolors": 1
   \ }
 '''
 
