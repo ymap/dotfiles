@@ -378,7 +378,11 @@ repo = 'dense-analysis/ale'
 depends = ['vim-projectionist']
 on_ft = ['php', 'typescript', 'ruby']
 hook_source = '''
-	let g:ale_linters = {}
+	let g:ale_linters = {
+	\ 'php': [],
+	\ 'typescript': [],
+	\ 'ruby': []
+	\ }
 	let g:ale_fixers = {
 	\ 'php': ['php_cs_fixer'],
 	\ 'typescript': ['eslint'],
