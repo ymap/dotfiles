@@ -190,6 +190,7 @@ hook_add = '''
   \ "coc-tsserver",
   \ "coc-vetur",
   \ "coc-yaml",
+  \ "coc-yank",
   \ "https://github.com/h4kst3r/php-awesome-snippets",
   \ ]
 
