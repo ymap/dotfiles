@@ -260,3 +260,6 @@ ruby_eruby = '''
 
 [[plugins]]
 repo = 'bronson/vim-visual-star-search'
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
