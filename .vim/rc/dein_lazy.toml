@@ -616,6 +616,14 @@ hook_add = '''
 repo = 'iamcco/markdown-preview.nvim'
 on_ft = 'markdown'
 build = 'sh -c "cd app & yarn install"'
+hook_add = '''
+  let g:mkdp_auto_close = 0
+'''
+
+[plugins.ftplugin]
+markdown = '''
+  nmap <silent><buffer> <leader><leader> <Plug>MarkdownPreviewToggle
+'''
 
 [[plugins]]
 repo = 'tpope/vim-dadbod'
