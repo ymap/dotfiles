@@ -264,7 +264,9 @@ post = '''
 '''
 
 log = '''
-  set syntax=yaml
+  if expand("%:p") == "output:///post"
+    set syntax=yaml
+  endif
 '''
 
 yaml = '''
