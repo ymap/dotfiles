@@ -94,6 +94,7 @@
   "translator.toLang": "ja",
   "translator.engines": ["google"],
   "translator.window.maxHeight": 10,
+  "yaml.format.enable": true,
   "cSpell.userWords": [
     "IFNULL",
     "Jsonable",
