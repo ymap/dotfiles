@@ -183,6 +183,7 @@ rev = 'release'
 hook_add = '''
   let g:coc_global_extensions = [
   \ "coc-actions",
+  \ "coc-browser",
   \ "coc-css",
   \ "coc-db",
   \ "coc-diagnostic",
