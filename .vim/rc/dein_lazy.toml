@@ -479,6 +479,9 @@ hook_add = '''
 [[plugins]]
 repo = 'rcmdnk/vim-markdown'
 on_ft = 'markdown'
+hook_add = '''
+  let g:vim_markdown_conceal = 0
+'''
 
 [[plugins]]
 repo = 'lambdalisue/vim-findent'
