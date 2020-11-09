@@ -95,6 +95,9 @@
   "translator.engines": ["google"],
   "translator.window.maxHeight": 10,
   "yaml.format.enable": true,
+  "yaml.schemas":{
+    "http://json.schemastore.org/swagger-2.0": "*swagger.yaml"
+  },
   "cSpell.userWords": [
     "IFNULL",
     "Jsonable",
