@@ -2,6 +2,7 @@
   "coc.preferences.rootPatterns": [
     ".projections.json"
   ],
+  "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSaveFiletypes": [
     "sh"
   ],
