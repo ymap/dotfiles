@@ -5,7 +5,7 @@
 if executable('rg')
     call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
     call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading', '--ignore-case', '--fixed-strings', '--no-ignore'])
+    call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading', '--ignore-case', '--fixed-strings', '--no-ignore', '-g', '!coverage', '-g', '!log'])
 endif
 
 call denite#custom#source('file/old', 'matchers',
