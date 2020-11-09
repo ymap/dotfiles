@@ -293,4 +293,10 @@ repo = 'bronson/vim-visual-star-search'
 repo = 'kchmck/vim-coffee-script'
 
 [[plugins]]
+repo = 'voldikss/vim-floaterm'
+hook_add = '''
+  nnoremap <silent> <leader>fl :FloatermNew lazygit<CR>
+'''
+
+[[plugins]]
 repo = 'junegunn/vim-slash'
