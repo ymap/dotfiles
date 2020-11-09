@@ -642,6 +642,14 @@ hook_add = '''
   nnoremap <silent> <leader>u :DBUIToggle<CR>
 
   let g:db_ui_auto_execute_table_helpers = 1
+  let g:db_ui_table_helpers = {
+  \   'mysql': {
+  \     'Count': 'select count(1) from {optional_schema}{table}',
+  \     'Explain': 'EXPLAIN {last_query}',
+  \     'Describe': 'DESC {optional_schema}{table}',
+  \     'CreateTable': 'SHOW CREATE TABLE {optional_schema}{table}'
+  \   }
+  \ }
 '''
 
 [[plugins]]
