@@ -432,17 +432,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'iberianpig/tig-explorer.vim'
-on_cmd = ['Tig', 'TigBlame']
-hook_add = '''
-   nnoremap <silent> <Leader>TT :Tig<CR>
-   nnoremap <silent> <Leader>TB :TigBlame<CR>
-   nnoremap <silent> <Leader>TS :Tig status<CR>
-   nnoremap <silent> <Leader>TL :Tig log <C-R>=expand('%:p')<CR><CR>
-   nnoremap <silent> <Leader>TD :Tig diff HEAD <C-R>=expand('%:p')<CR><CR>
-'''
-
-[[plugins]]
 repo = 'elzr/vim-json'
 on_ft = 'json'
 hook_source = '''
