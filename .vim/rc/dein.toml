@@ -259,7 +259,7 @@ hook_add = '''
 [plugins.ftplugin]
 post = '''
   set syntax=yaml
-  nmap <silent><buffer> <leader><leader> :<C-u>CocCommand post.do<CR>
+  nnoremap <silent><buffer> <leader><leader> :<C-u>CocCommand post.do<CR>
 '''
 
 log = '''
