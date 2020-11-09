@@ -622,6 +622,9 @@ repo = 'tpope/vim-dadbod'
 on_source = 'vim-dadbod-ui'
 depends = 'vim-dispatch'
 on_cmd = 'DB'
+hook_add = '''
+  let g:omni_sql_no_default_maps = 1
+'''
 
 [[plugins]]
 repo = 'kristijanhusak/vim-dadbod-ui'
