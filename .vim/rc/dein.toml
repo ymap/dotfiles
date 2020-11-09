@@ -191,6 +191,7 @@ hook_add = '''
   \ "coc-emoji",
   \ "coc-eslint",
   \ "coc-explorer",
+  \ "coc-floatinput",
   \ "coc-html",
   \ "coc-json",
   \ "coc-markdownlint",
