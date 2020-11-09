@@ -638,6 +638,9 @@ hook_add = '''
 repo = 'kristijanhusak/vim-dadbod-ui'
 depends = 'vim-dadbod'
 on_cmd = ['DBUI', 'DBUIToggle']
+hook_add = '''
+  nnoremap <silent> <leader>u :DBUIToggle<CR>
+'''
 
 [[plugins]]
 repo = 'danchoi/ri.vim'
