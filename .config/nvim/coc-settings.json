@@ -60,6 +60,7 @@
   "explorer.quitOnOpen": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.datetime.format": "yyyy/MM/dd HH:mm:ss eee",
+  "explorer.file.showHiddenFiles": true,
   "explorer.sources": [
     {
       "name": "file",
