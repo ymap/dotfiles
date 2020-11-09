@@ -637,7 +637,7 @@ hook_add = '''
 [[plugins]]
 repo = 'kristijanhusak/vim-dadbod-ui'
 depends = 'vim-dadbod'
-on_cmd = 'DBUI'
+on_cmd = ['DBUI', 'DBUIToggle']
 
 [[plugins]]
 repo = 'danchoi/ri.vim'
