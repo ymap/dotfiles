@@ -60,6 +60,12 @@
   "explorer.quitOnOpen": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.datetime.format": "yyyy/MM/dd HH:mm:ss eee",
+  "explorer.sources": [
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
   "list.insertMappings": {
     "<C-c>": "do:exit"
   },
