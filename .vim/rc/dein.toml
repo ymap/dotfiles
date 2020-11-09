@@ -204,6 +204,7 @@ hook_add = '''
   \ "coc-spell-checker",
   \ "coc-solargraph",
   \ "coc-stylelintplus",
+  \ "coc-swagger",
   \ "coc-tabnine",
   \ "coc-translator",
   \ "coc-tsserver",
@@ -264,6 +265,12 @@ post = '''
 
 log = '''
   set syntax=yaml
+'''
+
+yaml = '''
+  if expand("%:r") =~ "swagger$"
+    nnoremap <silent><buffer> <leader><leader> :<C-u>CocCommand swagger.render<CR>
+  endif
 '''
 
 [[plugins]]
