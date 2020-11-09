@@ -9,6 +9,19 @@ merged = 0
 repo = 'machakann/vim-sandwich'
 hook_add = '''
   runtime macros/sandwich/keymap/surround.vim
+
+  let g:sandwich#recipes += [
+  \   {
+  \     'buns': ['（', '）'],
+  \     'input': ['（', '）'],
+  \     'nesting': 1
+  \   },
+  \   {
+  \     'buns': ['「', '」'],
+  \     'input': ['「', '」'],
+  \     'nesting': 1
+  \   }
+  \ ]
 '''
 
 [[plugins]]
