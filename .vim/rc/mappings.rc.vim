@@ -1,5 +1,6 @@
 inoremap <C-c> <C-[>
 inoremap <silent> jj <C-[>
+inoremap <silent> <C-t> i<BS><C-o>:silent! undojoin \| call setreg("y", getreg("\"")) \| normal! h"zx"zp<CR><C-o>:call setreg("\"", getreg("y"))<CR>
 noremap <silent> j gj
 noremap <silent> k gk
 noremap <silent> <Down> gj
