@@ -192,6 +192,7 @@ hook_add = '''
   \ "coc-eslint",
   \ "coc-explorer",
   \ "coc-floatinput",
+  \ "coc-format-json",
   \ "coc-html",
   \ "coc-json",
   \ "coc-markdownlint",
