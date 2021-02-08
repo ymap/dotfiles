@@ -86,6 +86,8 @@ endfunction
 " If true Vim master, use English help file.
 set helplang& helplang=en,ja
 
+set cedit=<C-q>
+
 "---------------------------------------------------------------------------
 " View:
 "
