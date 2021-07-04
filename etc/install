@@ -24,10 +24,7 @@ else
   fi
 fi
 
-cd "$DOTFILES_REPOSITORY_DIR"
-
-ln -s ".vim" "$HOME/.vim"
-ln -s ".config" "$HOME/.config"
-ln -s ".gitconfig" "$HOME/.gitconfig" ||
-  git config user.name $(git config -f .gitconfig user.name);git config user.email $(git config -f .gitconfig user.email)
-
+ln -s "$DOTFILES_REPOSITORY_DIR/.vim" "$HOME/.vim"
+ln -s "$DOTFILES_REPOSITORY_DIR/.config" "$HOME/.config"
+ln -s "$DOTFILES_REPOSITORY_DIR/.gitconfig" "$HOME/.gitconfig" ||
+  (git config user.name $(git config -f .gitconfig user.name);git config user.email $(git config -f .gitconfig user.email))
