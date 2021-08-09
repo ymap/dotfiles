@@ -2,27 +2,18 @@
 
 DOTFILES_REPOSITORY_DIR=~/.dotfiles
 DOTFILES_REPOSITORY_URL="https://github.com/ymap/dotfiles.git"
-DOTFILES_TARBALL_URL="https://github.com/ymap/dotfiles/archive/master.tar.gz"
 
 if [ -d $DOTFILES_REPOSITORY_DIR ]; then
   echo "$DOTFILES_REPOSITORY_DIR: directory already exists"
   exit 1
 fi
 
-if type git >/dev/null 2>&1; then
-  git clone "$DOTFILES_REPOSITORY_URL" "$DOTFILES_REPOSITORY_DIR"
-else
-  if type curl >/dev/null 2>&1; then
-    curl -L "$DOTFILES_TARBALL_URL" | tar xvz
-    mv dotfiles-master "$DOTFILES_REPOSITORY_DIR"
-  elif type wget >/dev/null 2>&1; then
-    wget -O - "$DOTFILES_TARBALL_URL" | tar xvz
-    mv dotfiles-master "$DOTFILES_REPOSITORY_DIR"
-  else
-    echo "git or curl or wget required"
-    exit 1
-  fi
+if !(type git >/dev/null 2>&1); then
+  echo "$0: git required"
+  exit 1
 fi
+
+git clone "$DOTFILES_REPOSITORY_URL" "$DOTFILES_REPOSITORY_DIR"
 
 ln -s "$DOTFILES_REPOSITORY_DIR/.vim" "$HOME/.vim"
 ln -s "$DOTFILES_REPOSITORY_DIR/.config" "$HOME/.config"
