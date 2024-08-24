@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+DOTFILES_REPOSITORY_DIR=~/.dotfiles
+DOTFILES_REPOSITORY_URL="https://github.com/ymap/dotfiles.git"
+
+if [ -d $DOTFILES_REPOSITORY_DIR ]; then
+  echo "$DOTFILES_REPOSITORY_DIR: directory already exists"
+  exit 1
+fi
+
+if !(type git >/dev/null 2>&1); then
+  echo "$0: git required"
+  exit 1
+fi
+
+git clone "$DOTFILES_REPOSITORY_URL" "$DOTFILES_REPOSITORY_DIR"
+
+ln -s "$DOTFILES_REPOSITORY_DIR/.tmux.conf" "$HOME/.tmux.conf"
+ln -s "$DOTFILES_REPOSITORY_DIR/.config" "$HOME/.config"
+ln -s "$DOTFILES_REPOSITORY_DIR/.gitconfig" "$HOME/.gitconfig" ||
+  (git config user.name $(git config -f .gitconfig user.name);git config user.email $(git config -f .gitconfig user.email))
