@@ -27,6 +27,18 @@ return {
   {
     'rbtnn/vim-ambiwidth',
     lazy = false,
+    config = function()
+      -- Adjust cell width for glyph  (0xe0b2) by removing relevant entries
+      local cellwidths = vim.fn.getcellwidths()
+
+      for i, v in ipairs(cellwidths) do
+        if v[1] <= 0xe0b2 and v[2] >= 0xe0b2 then
+          table.remove(cellwidths, i)
+        end
+      end
+
+      vim.fn.setcellwidths(cellwidths)
+    end
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -230,10 +242,6 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function(_, opts)
-      vim.fn.setcellwidths({ { 0xe0b2, 0xe0b3, 1 } })
-      require("lualine").setup(opts)
-    end,
     opts = {
       sections = {
         lualine_a = { 'mode' },
