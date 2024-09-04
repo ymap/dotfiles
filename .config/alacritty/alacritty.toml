@@ -21,11 +21,11 @@ family = "MyricaMonospace Nerd Font" # https://github.com/mkasa/myrica-nerdfonts
 
 [[keyboard.bindings]]
 chars = '\'
-key = "¥"
+key = "_"
 
 [[keyboard.bindings]]
 chars = "\u001C"
-key = "¥"
+key = "_"
 mods = "Control"
 
 [[keyboard.bindings]]
