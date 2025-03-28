@@ -651,15 +651,16 @@ return {
     },
   },
   {
-    'mbbill/undotree',
-    cmd = 'UndotreeToggle',
+    'jiaoshijie/undotree',
+    event = 'VeryLazy',
+    dependencies = "nvim-lua/plenary.nvim",
     keys = {
-      { 'U', ':<C-u>UndotreeToggle<CR>', silent = true, noremap = true },
+      { 'U', function() require('undotree').toggle() end, silent = true, noremap = true },
     },
     config = function()
-      vim.g.undotree_WindowLayout = 2
-      vim.g.undotree_ShortIndicators = 1
-      vim.g.undotree_SetFocusWhenToggle = 1
+      require('undotree').setup({
+        window = { winblend = 20 },
+      })
     end,
   },
   {
