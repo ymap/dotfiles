@@ -788,7 +788,6 @@ return {
         ruby = { 'packwerk' },
         typescript = {},
         vim = {},
-        gitcommit = {},
         markdown = {},
         yaml = {},
       }
@@ -796,7 +795,6 @@ return {
         typescript = { 'eslint' },
         ruby = {},
         sql = { 'sqlformat' },
-        gitcommit = { 'gitlint' },
         markdown = { 'remark-lint' },
         yaml = {},
       }
