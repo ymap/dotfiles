@@ -133,10 +133,11 @@ return {
     keys = {
       { '<leader>tw', function() require("neotest").watch.toggle() end,                silent = true, noremap = true },
       { '<leader>tm', function() require("neotest").run.run() end,                     silent = true, noremap = true },
-      { '<leader>Tm', function() require("neotest").run.run({ strategy = "dap" }) end, silent = true, noremap = true },
       { '<leader>ta', function() require("neotest").run.run(vim.fn.expand("%")) end,   silent = true, noremap = true },
       { '<leader>tl', function() require("neotest").run.run_last() end,                silent = true, noremap = true },
-      { '<leader>to', ':Neotest output-panel<CR>',                                     silent = true, noremap = true },
+      { '<leader>to', function() require("neotest").output.open({ enter = true }) end, silent = true, noremap = true },
+      { '<leader>To', function() require("neotest").output_panel.toggle() end,         silent = true, noremap = true },
+      { '<leader>ts', function() require("neotest").summary.toggle() end,              silent = true, noremap = true },
     },
     config = function()
       require("neotest").setup({
@@ -144,6 +145,9 @@ return {
           require("neotest-rspec")({
             rspec_cmd = function() return "bin/rspec" end
           }),
+        },
+        output = {
+          open_on_run = true,
         },
         output_panel = {
           open = "vsplit"
