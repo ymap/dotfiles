@@ -110,17 +110,12 @@ return {
   },
   {
     'karb94/neoscroll.nvim',
-    config = function()
-      require("neoscroll").setup({
-        mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>' },
-      })
-      require("neoscroll.config").set_mappings({
-        ["<C-b>"] = { "scroll", { -vim.api.nvim_win_get_height(0), "true", "100" } },
-        ["<C-f>"] = { "scroll", { vim.api.nvim_win_get_height(0), "true", "100" } },
-        ["<C-u>"] = { "scroll", { -vim.wo.scroll, "true", "100" } },
-        ["<C-d>"] = { "scroll", { vim.wo.scroll, "true", "100" } },
-      })
-    end
+    keys = {
+      { '<C-b>', function() require("neoscroll").ctrl_b({ duration = 100 }) end, silent = true, noremap = true },
+      { '<C-f>', function() require("neoscroll").ctrl_f({ duration = 100 }) end, silent = true, noremap = true },
+      { '<C-u>', function() require("neoscroll").ctrl_u({ duration = 100 }) end, silent = true, noremap = true },
+      { '<C-d>', function() require("neoscroll").ctrl_d({ duration = 100 }) end, silent = true, noremap = true },
+    }
   },
   {
     'mfussenegger/nvim-dap',
