@@ -204,16 +204,38 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     keys = {
-      { '<leader>ff', ':Telescope find_files hidden=true<CR>',        silent = true, noremap = true },
-      { '<leader>gl', ':Telescope live_grep<CR>',                     silent = true, noremap = true },
-      { '<leader>gg', ':Telescope grep_string<CR>',                   silent = true, noremap = true },
-      { '<leader>bb', ':Telescope buffers<CR>',                       silent = true, noremap = true },
-      { '<leader>v',  ':Telescope find_files cwd=~/.config/nvim<CR>', silent = true, noremap = true },
-      { '<leader>h',  ':Telescope help_tags<CR>',                     silent = true, noremap = true },
-      { '<leader>gh', ':Telescope ghq<CR>',                           silent = true, noremap = true },
-      { '<leader>gc', ':Telescope git_commits<CR>',                   silent = true, noremap = true },
-      { '<leader>gs', ':Telescope git_status<CR>',                    silent = true, noremap = true },
-      { '<leader>gb', ':Telescope git_branches<CR>',                  silent = true, noremap = true },
+      { '<leader>ff',  ':Telescope find_files hidden=true<CR>',                                         silent = true, noremap = true },
+      { '<leader>gl',  ':Telescope live_grep<CR>',                                                      silent = true, noremap = true },
+      { '<leader>gg',  ':Telescope grep_string<CR>',                                                    silent = true, noremap = true },
+      { '<leader>bb',  ':Telescope buffers<CR>',                                                        silent = true, noremap = true },
+      { '<leader>v',   ':Telescope find_files cwd=~/.config/nvim<CR>',                                  silent = true, noremap = true },
+      { '<leader>h',   ':Telescope help_tags<CR>',                                                      silent = true, noremap = true },
+      { '<leader>gh',  ':Telescope ghq<CR>',                                                            silent = true, noremap = true },
+      { '<leader>gc',  ':Telescope git_commits<CR>',                                                    silent = true, noremap = true },
+      { '<leader>gs',  ':Telescope git_status<CR>',                                                     silent = true, noremap = true },
+      { '<leader>gb',  ':Telescope git_branches<CR>',                                                   silent = true, noremap = true },
+      { '<leader>jk',  ':vs ~/.cache/junkfile/kaizen.md<CR>',                                           silent = true, noremap = true },
+      { '<leader>jt',  ':vs ~/.cache/junkfile/todo.md<CR>',                                             silent = true, noremap = true },
+      { '<leader>jm',  ':<C-u>call execute(strftime("vs ~/.cache/junkfile/%Y-%m-%d-%H%M%S.md"))<CR>',   silent = true, noremap = true },
+      { '<leader>jr',  ':<C-u>call execute(strftime("vs ~/.cache/junkfile/%Y-%m-%d-%H%M%S.rb"))<CR>',   silent = true, noremap = true },
+      { '<leader>jsq', ':<C-u>call execute(strftime("vs ~/.cache/junkfile/%Y-%m-%d-%H%M%S.sql"))<CR>',  silent = true, noremap = true },
+      { '<leader>jsh', ':<C-u>call execute(strftime("vs ~/.cache/junkfile/%Y-%m-%d-%H%M%S.bash"))<CR>', silent = true, noremap = true },
+      { '<leader>jv',  ':<C-u>call execute(strftime("vs ~/.cache/junkfile/%Y-%m-%d-%H%M%S.vim"))<CR>',  silent = true, noremap = true },
+      { '<leader>jjs', ':<C-u>call execute(strftime("vs ~/.cache/junkfile/%Y-%m-%d-%H%M%S.js"))<CR>',   silent = true, noremap = true },
+      {
+        '<leader>jl',
+        function()
+          require("telescope.builtin")
+              .find_files(
+                {
+                  cwd = '~/.cache/junkfile',
+                  find_command = { "rg", "--files", "--sortr=modified" },
+                }
+              )
+        end,
+        silent = true,
+        noremap = true
+      },
     },
     config = function()
       local ts = require('telescope')
@@ -784,48 +806,6 @@ return {
       vim.g.ale_markdown_remark_lint_options = '--rc-path=$HOME/.config/remark-lint/.remarkrc.yml'
       vim.g.ale_fix_on_save = 1
     end,
-  },
-  {
-    'Shougo/denite.nvim',
-    cmd = 'Denite',
-    keys = {
-      { '<CR>',    'denite#do_map("do_action")',            ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { 'a',       'denite#do_map("do_action", "add")',     ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { 'p',       'denite#do_map("do_action", "preview")', ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { 'q',       'denite#do_map("quit")',                 ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { '<C-c>',   'denite#do_map("quit")',                 ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { 'i',       'denite#do_map("open_filter_buffer")',   ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { '<Space>', 'denite#do_map("toggle_select")."j"',    ft = 'denite',        silent = true,        noremap = true, expr = true },
-      { '<C-c>',   '<Plug>(denite_filter_update)',          ft = 'denite-filter', silent = true },
-      { '<C-o>',   '<Plug>(denite_filter_update)',          mode = 'i',           ft = 'denite-filter', silent = true },
-    },
-    config = function()
-      vim.fn['denite#custom#option']('_', 'root_markers', '.projections.json')
-      vim.fn['denite#custom#option']('_', 'highlight_matched_range', 'None')
-      vim.fn['denite#custom#option']('_', 'highlight_matched_char', 'None')
-      vim.fn['denite#custom#option']('_', 'start_filter', true)
-      vim.fn['denite#custom#option']('_', {
-        highlight_filter_background = 'CursorLine',
-        highlight_matched_char = 'Search',
-        source_names = 'short',
-        split = 'floating',
-      })
-    end,
-  },
-  {
-    'Shougo/junkfile.vim',
-    commit = 'f1bb37d152edb087dae42c68466b95fc2c9fc9d8',
-    dependencies = 'denite.nvim',
-    keys = {
-      { '<leader>jk',  ':<C-u>call junkfile#init()<CR>:execute("vs " . g:junkfile#directory . "/kaizen.md")<CR>', silent = true, noremap = true },
-      { '<leader>jm',  ':<C-u>call junkfile#open_immediately(strftime("%Y-%m-%d-%H%M%S.md"))<CR>',                silent = true, noremap = true },
-      { '<leader>jr',  ':<C-u>call junkfile#open_immediately(strftime("%Y-%m-%d-%H%M%S.rb"))<CR>',                silent = true, noremap = true },
-      { '<leader>jsq', ':<C-u>call junkfile#open_immediately(strftime("%Y-%m-%d-%H%M%S.sql"))<CR>',               silent = true, noremap = true },
-      { '<leader>jsh', ':<C-u>call junkfile#open_immediately(strftime("%Y-%m-%d-%H%M%S.bash"))<CR>',              silent = true, noremap = true },
-      { '<leader>jv',  ':<C-u>call junkfile#open_immediately(strftime("%Y-%m-%d-%H%M%S.vim"))<CR>',               silent = true, noremap = true },
-      { '<leader>jjs', ':<C-u>call junkfile#open_immediately(strftime("%Y-%m-%d-%H%M%S.js"))<CR>',                silent = true, noremap = true },
-      { '<leader>jl',  ':<C-u>Denite junkfile junkfile:new<CR>',                                                  silent = true, noremap = true },
-    }
   },
   {
     'tpope/vim-dadbod',
