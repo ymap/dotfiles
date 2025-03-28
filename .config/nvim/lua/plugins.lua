@@ -41,72 +41,6 @@ return {
     end
   },
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>cm",  "<CMD>CopilotChatCommit<CR>" },
-      { "<leader>cc",  "<CMD>CopilotChatToggle<CR>",       mode = { "n", "v" } },
-      { "<leader>cdo", "<CMD>CopilotChatDoc<CR>",          mode = { "n", "v" } },
-      { "<leader>cdi", "<CMD>CopilotChatFixDiagnostic<CR>" },
-      { "<leader>ce",  "<CMD>CopilotChatExplain<CR>",      mode = { "n", "v" } },
-      { "<leader>cf",  "<CMD>CopilotChatFix<CR>",          mode = { "n", "v" } },
-      { "<leader>co",  "<CMD>CopilotChatOptimize<CR>",     mode = { "n", "v" } },
-      { "<leader>cr",  "<CMD>CopilotChatReview<CR>",       mode = { "n", "v" } },
-      { "<leader>cs",  "<CMD>CopilotChatStop<CR>" },
-    },
-    config = function()
-      local prompts = require('CopilotChat.prompts')
-
-      require("CopilotChat").setup(
-        {
-          system_prompt = prompts.COPILOT_INSTRUCTIONS .. "\nYou MUST respond in Japanese.",
-          window = {
-            layout = 'float',
-            relative = 'win',
-            width = 0.5,
-            height = 0.8,
-            row = 2,
-            col = 60,
-            border = 'rounded',
-          },
-          mappings = {
-            complete = {
-              detail = 'Use @<Tab> or /<Tab> for options.',
-              insert = '<Tab>',
-            },
-            close = {
-              normal = '<C-c>',
-              insert = '<NOP>'
-            },
-            reset = {
-              insert = '<C-l>'
-            },
-            submit_prompt = {
-              normal = '<CR>',
-              insert = '<C-m>'
-            },
-            accept_diff = {
-              normal = '<C-y>',
-              insert = '<C-y>'
-            },
-            yank_diff = {
-              normal = 'gy',
-            },
-            show_diff = {
-              normal = 'gd'
-            },
-            show_system_prompt = {
-              normal = 'gp'
-            },
-            show_user_selection = {
-              normal = 'gs'
-            },
-          },
-        }
-      )
-    end,
-  },
-  {
     "chrishrb/gx.nvim",
     keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
     cmd = { "Browse" },
@@ -603,216 +537,6 @@ return {
     },
   },
   {
-    'jackMort/ChatGPT.nvim',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    keys = {
-      { '<leader><leader>', '<Cmd>ChatGPT<CR>',                     mode = { "n", "v" }, silent = true, noremap = true },
-      { '<leader>E',        '<Cmd>ChatGPTEditWithInstructions<CR>', mode = { "n", "v" }, silent = true, noremap = true },
-      {
-        '<leader>e',
-        function()
-          function OpeChatGPTEdit() require("chatgpt").edit_with_instructions() end
-
-          vim.o.operatorfunc = "v:lua.OpeChatGPTEdit"
-          vim.api.nvim_feedkeys("g@", "n", false)
-        end,
-        mode = { "n", "v" },
-        silent = true,
-        noremap = true,
-      },
-    },
-    config = function()
-      vim.api.nvim_create_autocmd(
-        "Filetype",
-        {
-          pattern = "chatgpt-input",
-          callback = function()
-            vim.keymap.set("i", "<C-c>", "<C-c>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-d>", "<C-d>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-h>", "<C-h>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-i>", "<C-i>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-k>", "<C-k>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-p>", "<C-p>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-r>", "<C-r>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-s>", "<C-s>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-u>", "<C-u>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<C-y>", "<C-y>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<Tab>", "<Tab>", { noremap = true, silent = true, buffer = 0 })
-            vim.keymap.set("i", "<CR>", "<ESC><CR>", { noremap = true, silent = true, buffer = 0 })
-          end
-        }
-      )
-      require('chatgpt').setup({
-        api_key_cmd = nil,
-        yank_register = "+",
-        edit_with_instructions = {
-          diff = true,
-          keymaps = {
-            -- close = { "<ESC>" },
-            accept = "<C-y>",
-            toggle_diff = "<C-d>",
-            toggle_settings = "<C-o>",
-            toggle_help = "?",
-            cycle_windows = "<Tab>",
-            use_output_as_input = "<C-i>",
-          },
-        },
-        chat = {
-          welcome_message = WELCOME_MESSAGE,
-          loading_text = "Loading, please wait ...",
-          question_sign = "", -- 🙂
-          answer_sign = "ﮧ", -- 🤖
-          border_left_sign = "",
-          border_right_sign = "",
-          max_line_length = 120,
-          sessions_window = {
-            active_sign = "  ",
-            inactive_sign = "  ",
-            current_line_sign = "",
-            border = {
-              style = "rounded",
-              text = {
-                top = " Sessions ",
-              },
-            },
-            win_options = {
-              winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-            },
-          },
-          keymaps = {
-            close = "<C-c>",
-            yank_last = "<C-y>",
-            yank_last_code = "<C-k>",
-            scroll_up = "<C-u>",
-            scroll_down = "<C-d>",
-            new_session = "<C-n>",
-            cycle_windows = "<Tab>",
-            cycle_modes = "<C-f>",
-            next_message = "<C-j>",
-            prev_message = "<C-k>",
-            select_session = "<Space>",
-            rename_session = "r",
-            delete_session = "d",
-            draft_message = "<C-r>",
-            edit_message = "e",
-            delete_message = "d",
-            toggle_settings = "<C-o>",
-            toggle_sessions = "<C-p>",
-            toggle_help = "<C-h>",
-            toggle_message_role = "<C-r>",
-            toggle_system_role_open = "<C-s>",
-            stop_generating = "<C-x>",
-          },
-        },
-        popup_layout = {
-          default = "center",
-          center = {
-            width = "80%",
-            height = "80%",
-          },
-          right = {
-            width = "30%",
-            width_settings_open = "50%",
-          },
-        },
-        popup_window = {
-          border = {
-            highlight = "FloatBorder",
-            style = "rounded",
-            text = {
-              top = " ChatGPT ",
-            },
-          },
-          win_options = {
-            wrap = true,
-            linebreak = true,
-            foldcolumn = "1",
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-          },
-          buf_options = {
-            filetype = "markdown",
-          },
-        },
-        system_window = {
-          border = {
-            highlight = "FloatBorder",
-            style = "rounded",
-            text = {
-              top = " SYSTEM ",
-            },
-          },
-          win_options = {
-            wrap = true,
-            linebreak = true,
-            foldcolumn = "2",
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-          },
-        },
-        popup_input = {
-          prompt = "  ",
-          border = {
-            highlight = "FloatBorder",
-            style = "rounded",
-            text = {
-              top_align = "center",
-              top = " Prompt ",
-            },
-          },
-          win_options = {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-          },
-          submit = "<C-Enter>",
-          submit_n = "<Enter>",
-          max_visible_lines = 20,
-        },
-        settings_window = {
-          setting_sign = "  ",
-          border = {
-            style = "rounded",
-            text = {
-              top = " Settings ",
-            },
-          },
-          win_options = {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-          },
-        },
-        help_window = {
-          setting_sign = "  ",
-          border = {
-            style = "rounded",
-            text = {
-              top = " Help ",
-            },
-          },
-          win_options = {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-          },
-        },
-        openai_params = {
-          model = "gpt-4o",
-          max_tokens = 2048,
-        },
-        openai_edit_params = {
-          model = "gpt-4o",
-          max_tokens = 2048,
-        },
-        use_openai_functions_for_edits = false,
-        actions_paths = {},
-        show_quickfixes_cmd = "Trouble quickfix",
-        predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
-        highlights = {
-          help_key = "@symbol",
-          help_description = "@comment",
-        },
-      })
-    end,
-  },
-  {
     'mhinz/vim-startify',
     config = function()
       vim.g.startify_disable_at_vimenter = 0
@@ -1164,4 +888,88 @@ return {
       })
     end,
   },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false,
+    build = "make",
+    keys = {
+      {
+        '<leader>e',
+        function()
+          vim.cmd('normal! vip'); require("avante.api").edit()
+        end,
+        mode = { "n" },
+        silent = true,
+        noremap = true
+      },
+      { '<leader>e', function() require("avante.api").edit() end, mode = { "v" }, silent = true, noremap = true },
+    },
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+      {
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+          },
+        },
+      },
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+    opts = {
+      provider = "openai",
+      behaviour = {
+        enable_cursor_planning_mode = true,
+      },
+      openai = {
+        endpoint = "https://api.openai.com/v1",
+        model = "o3-mini",
+        timeout = 30000,
+        temperature = 0,
+      },
+      windows = {
+        position = "left",
+        wrap = true,
+      },
+      system_prompt = "Always respond in Japanese!"
+    },
+  },
+  {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    cmd = "MCPHub",
+    build = "npm install -g mcp-hub@latest",
+    config = function()
+      require("mcphub").setup({
+        port = 3030,
+        config = vim.fn.expand("~/.config/mcpservers.json"),
+        on_ready = function(hub) end,
+        on_error = function(err) end,
+        log = {
+          level = vim.log.levels.WARN,
+          to_file = false,
+          file_path = nil,
+          prefix = "MCPHub"
+        },
+      })
+    end
+  }
 }
