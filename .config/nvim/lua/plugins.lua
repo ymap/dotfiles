@@ -837,9 +837,13 @@ return {
     keys = {
       { '<leader>u', ':DBUIToggle<CR>', silent = true, noremap = true },
     },
+    init = function()
+      vim.g.db_ui_use_nvim_notify = 1
+      vim.g.db_ui_force_echo_notifications = 0
+      vim.g.db_ui_disable_progress_bar = 1
+    end,
     config = function()
       vim.g.db_ui_auto_execute_table_helpers = 1
-      vim.g.db_ui_force_echo_notifications = 1
       vim.g.db_ui_show_help = 0
       vim.g.db_ui_table_helpers = {
         mysql = {
