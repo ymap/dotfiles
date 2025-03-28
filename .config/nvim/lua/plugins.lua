@@ -239,34 +239,41 @@ return {
     },
     config = function()
       local ts = require('telescope')
+      local actions_layout = require("telescope.actions.layout")
       ts.setup({
         defaults = {
+          layout_strategy = "flex",
+          layout_config = {
+            flip_columns = 120,
+            vertical = {
+              preview_cutoff = 20,
+            },
+            scroll_speed = 10,
+          },
           sorting_strategy = "ascending",
           mappings = {
             n = {
               ["<C-c>"] = "close",
+              ["<C-p>"] = function(...) return actions_layout.toggle_preview(...) end,
+              ['<C-u>'] = "results_scrolling_up",
+              ['<C-d>'] = "results_scrolling_down",
+              ['<C-b>'] = "preview_scrolling_up",
+              ['<C-f>'] = "preview_scrolling_down",
             },
             i = {
               ["<C-o>"] = { "<esc>", type = "command" },
               ["<C-u>"] = false,
+              ['<C-b>'] = "preview_scrolling_up",
+              ['<C-f>'] = "preview_scrolling_down",
             },
           },
         },
-        pickers = {
-          -- Default configuration for builtin pickers goes here:
-          -- picker_name = {
-          --   picker_config_key = value,
-          --   ...
-          -- }
-          -- Now the picker_config_key will be applied every time you call this
-          -- builtin picker
-        },
         extensions = {
           fzf = {
-            fuzzy = true,                   -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true,    -- override the file sorter
-            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
           }
         }
       })
