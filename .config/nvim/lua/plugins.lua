@@ -452,19 +452,61 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require('lspconfig')
-
-      lspconfig.lua_ls.setup({
-        settings = {
-          Lua = {
-            runtime = { version = 'LuaJIT' },
-            diagnostics = { globals = { 'vim' } },
-            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-            telemetry = { enable = false },
+    dependencies = {
+      "saghen/blink.cmp",
+    },
+    opts = {
+      servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              runtime = { version = 'LuaJIT' },
+              diagnostics = { globals = { 'vim' } },
+              workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+              telemetry = { enable = false },
+            },
           },
         },
-      })
+        vacuum = {
+          settings = {
+            vacuum = {
+              filetypes = { "openapi" },
+            },
+          },
+        },
+        ts_ls = {
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = vim.fn.expand("$HOME/node_modules/@vue/typescript-plugin"),
+              },
+            },
+          },
+        },
+        yamlls = {
+          settings = {
+            yaml = {
+              schemas = {
+                ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
+              },
+            },
+          }
+        },
+        sorbet = {
+          cmd = { 'bundle', 'exec', 'srb', 'tc', '--lsp' }
+        },
+        rubocop = {
+          cmd = { 'bundle', 'exec', 'rubocop', '--lsp' }
+        }
+      }
+    },
+    config = function(_, opts)
+      local lspconfig = require('lspconfig')
+      for server, config in pairs(opts.servers) do
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
 
       vim.filetype.add {
         pattern = {
@@ -472,39 +514,6 @@ return {
           ['.*/openapi/.*%.json'] = 'json.openapi',
         },
       }
-
-      lspconfig.vacuum.setup({
-        settings = {
-          filetype = "openapi"
-        }
-      })
-
-      lspconfig.tsserver.setup({
-        init_options = {
-          plugins = {
-            {
-              name = "@vue/typescript-plugin",
-              location = vim.fn.expand("$HOME/node_modules/@vue/typescript-plugin"),
-            },
-          },
-        },
-      })
-
-      lspconfig.yamlls.setup({
-        settings = {
-          yaml = {
-            schemas = {
-              ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
-            },
-          },
-        }
-      })
-
-      lspconfig.sorbet.setup({ cmd = { 'bin/srb', 'tc', '--lsp' } })
-      lspconfig.rubocop.setup({
-        cmd = { 'bin/rubocop', '--lsp' },
-        root_dir = lspconfig.util.root_pattern({ 'sorbet' }),
-      })
     end
   },
   {
@@ -513,7 +522,7 @@ return {
     config = function()
       require("mason").setup({})
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "yamlls", "vacuum", "tsserver" },
+        ensure_installed = { "lua_ls", "yamlls", "vacuum", "ts_ls" },
         automatic_installation = { exclude = { "sorbet", "rubocop", "solargraph" } },
       })
     end
