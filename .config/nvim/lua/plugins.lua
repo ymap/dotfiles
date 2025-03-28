@@ -11,7 +11,7 @@ return {
   { 'kana/vim-textobj-user' },
   { 'rickhowe/diffchar.vim' },
   { 'tpope/vim-projectionist' },
-  { 'rhysd/conflict-marker.vim' },
+  { 'akinsho/git-conflict.nvim' },
   { 'MunifTanjim/nui.nvim' },
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-lua/popup.nvim' },
