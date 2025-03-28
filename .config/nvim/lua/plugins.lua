@@ -284,9 +284,31 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
+    keys = {
+      { '<leader>fo', function() require('conform').format() end, silent = true, noremap = true }
+    },
     cmd = "ConformInfo",
     opts = {
-      format_after_save = { lsp_fallback = true },
+      formatters = {
+        sql_formatter = {
+          command = 'sql-formatter',
+          args = {
+            '--config',
+            vim.fn.expand('~/.config/sql-formatter/.sql-formatter.json')
+          }
+        }
+      },
+      formatters_by_ft = {
+        sql = { "sql_formatter" },
+        mysql = { "sql_formatter" },
+      },
+      format_after_save = function(bufnr)
+        local ignore_filetypes = { 'sql', 'mysql' }
+        if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+          return
+        end
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
     },
   },
   {
