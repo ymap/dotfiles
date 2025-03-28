@@ -733,6 +733,7 @@ return {
     config = function()
       vim.keymap.set({ 'i', 'c' }, '<C-j>', '<Plug>(skkeleton-toggle)')
       vim.fn['skkeleton#register_keymap']('input', ';', 'henkanPoint')
+      vim.fn['skkeleton#register_keymap']('input', '<C-;>', 'henkanPoint')
       vim.fn['skkeleton#register_keymap']('input', '@', 'katakana')
       vim.fn['skkeleton#register_kanatable']('rom', { [':'] = { 'っ' } })
       vim.fn['skkeleton#config'](
