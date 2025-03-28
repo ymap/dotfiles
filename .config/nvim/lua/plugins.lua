@@ -665,7 +665,7 @@ return {
   },
   {
     'tpope/vim-rails',
-    ft = { 'ruby', 'eruby' },
+    event = 'VeryLazy',
   },
   {
     'tpope/vim-dispatch',
