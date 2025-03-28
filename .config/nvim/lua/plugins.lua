@@ -312,154 +312,116 @@ return {
     },
   },
   {
-    -- 'hrsh7th/nvim-cmp',
-    'xzbdmw/nvim-cmp',
-    branch = 'dynamic',
+    'saghen/blink.cmp',
+    version = '*',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
-      'onsails/lspkind.nvim',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-calc',
-      'dmitmel/cmp-cmdline-history',
-      'bydlw98/cmp-env',
-      'rasulomaroff/cmp-bufname',
-      'hrsh7th/cmp-path',
-      {
-        'tzachar/cmp-tabnine',
-        build = './install.sh',
-        config = function()
-          local tabnine = require("cmp_tabnine.config")
-          tabnine:setup({
-            max_num_results = 2
-          })
-        end
-      },
-      {
-        'petertriho/cmp-git',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        config = function() require("cmp_git").setup() end,
-      },
-      {
-        'zbirenbaum/copilot-cmp',
-        after = { "copilot.lua" },
-        config = function()
-          require('copilot_cmp').setup()
-        end
-      },
-      {
-        'wxxxcxx/cmp-browser-source',
-        config = function() require('cmp-browser-source').start_server() end,
-      },
+      "xzbdmw/colorful-menu.nvim",
+      "fang2hou/blink-copilot",
+      "Kaiser-Yang/blink-cmp-git",
+      "disrupted/blink-cmp-conventional-commits",
+      'Kaiser-Yang/blink-cmp-avante',
+      { "saghen/blink.compat",    version = '*' },
+      { "tzachar/cmp-tabnine",    build = './install.sh' },
       { 'uga-rosa/cmp-skkeleton', dependencies = { 'skkeleton' } },
     },
-    event = { 'InsertEnter', 'CmdlineEnter' },
-    config = function()
-      local cmp = require('cmp')
-      local lspkind = require('lspkind')
-
-      local has_words_before = function()
-        if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-      end
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end
+    opts = {
+      sources = {
+        default = {
+          'avante',
+          'skkeleton',
+          'copilot',
+          'cmp_tabnine',
+          'snippets',
+          'lsp',
         },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+        per_filetype = {
+          sql = { 'dadbod', 'copilot', 'cmp_tabnine' },
+          mysql = { 'dadbod', 'copilot', 'cmp_tabnine' },
+          gitcommit = { 'conventional_commits', 'git', 'copilot', 'cmp_tabnine', 'path' },
+          AvanteInput = { 'avante', 'skkeleton', 'copilot', 'cmp_tabnine', 'path', 'buffer' }
         },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = false }),
-          ['<Tab>'] = vim.schedule_wrap(
-            function(fallback)
-              if cmp.visible() and has_words_before() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-              else
-                fallback()
-              end
-            end
-          )
-        }),
-        sources = cmp.config.sources(
-          {
-            { name = 'skkeleton' },
-            { name = 'calc' },
+        providers = {
+          skkeleton = {
+            name = "skkeleton",
+            module = 'blink.compat.source',
+            score_offset = 100,
+            async = true,
           },
-          {
-            { name = 'env' },
-            { name = 'copilot' },
-            { name = 'cmp_tabnine' },
-            { name = 'nvim_lsp' },
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
           },
-          {
-            { name = 'buffer', keyword_length = 3 },
-            { name = 'bufname' },
-            { name = 'browser' },
-          }
-        ),
-        formatting = {
-          format = lspkind.cmp_format({
-            symbol_map = { Copilot = "" }
-          })
-        },
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            require("copilot_cmp.comparators").prioritize,
-            require('cmp_tabnine.compare'),
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
+          cmp_tabnine = {
+            name = "cmp_tabnine",
+            module = 'blink.compat.source',
+            score_offset = 100,
+            max_items = 2,
+            async = true,
+            opts = {
+              run_on_every_keystroke = true,
+            }
           },
-        },
-        experimental = {
-          ghost_text = true,
-        },
-      })
-
-      cmp.setup.filetype('gitcommit', {
-        sources = cmp.config.sources(
-          { { name = 'git' } },
-          { { name = 'buffer' } }
-        )
-      })
-
-      cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' },
+          lsp = {
+            name = "lsp",
+            module = "blink.cmp.sources.lsp",
+            async = true,
+            fallbacks = { 'path', 'buffer' }
+          },
+          dadbod = {
+            name = "Dadbod",
+            module = "vim_dadbod_completion.blink",
+            async = true,
+          },
+          git = {
+            name = 'Git',
+            module = 'blink-cmp-git',
+            async = true,
+          },
+          conventional_commits = {
+            name = 'Conventional Commits',
+            module = 'blink-cmp-conventional-commits',
+            async = true,
+          },
+          avante = {
+            name = 'Avante',
+            module = 'blink-cmp-avante',
+            async = true,
+          },
         }
-      })
-
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-          {
-            { name = 'path',   option = { trailing_slash = true, label_trailing_slash = true } },
-            { name = 'cmdline' },
+      },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 300,
+        },
+        menu = {
+          draw = {
+            columns = { { "label", gap = 1 }, { "kind_icon", "kind" } },
+            components = {
+              label = {
+                text = function(ctx)
+                  return require("colorful-menu").blink_components_text(ctx)
+                end,
+                highlight = function(ctx)
+                  return require("colorful-menu").blink_components_highlight(ctx)
+                end,
+              },
+            },
           },
-          {
-            { name = 'cmdline_history' },
-          }
-        ),
-        matching = { disallow_symbol_nonprefix_matching = false }
-      })
-    end
+          border = 'rounded',
+        },
+        ghost_text = { enabled = true },
+      },
+      keymap = {
+        preset = 'super-tab',
+        ['<CR>'] = { 'accept', 'fallback' },
+      },
+      signature = { enabled = true },
+    },
+    opts_extend = { "sources.default" },
   },
   {
     'j-hui/fidget.nvim',
@@ -858,7 +820,10 @@ return {
   },
   {
     'kristijanhusak/vim-dadbod-ui',
-    dependencies = 'vim-dadbod',
+    dependencies = {
+      'vim-dadbod',
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" } }
+    },
     cmd = { 'DBUI', 'DBUIToggle' },
     keys = {
       { '<leader>u', ':DBUIToggle<CR>', silent = true, noremap = true },
