@@ -201,6 +201,7 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-ghq.nvim',
+      'smartpde/telescope-recent-files',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     keys = {
@@ -210,6 +211,7 @@ return {
       { '<leader>bb',  ':Telescope buffers<CR>',                                                        silent = true, noremap = true },
       { '<leader>v',   ':Telescope find_files cwd=~/.config/nvim<CR>',                                  silent = true, noremap = true },
       { '<leader>h',   ':Telescope help_tags<CR>',                                                      silent = true, noremap = true },
+      { '<leader>re',  ':Telescope recent_files<CR>',                                                   silent = true, noremap = true },
       { '<leader>gh',  ':Telescope ghq<CR>',                                                            silent = true, noremap = true },
       { '<leader>gc',  ':Telescope git_commits<CR>',                                                    silent = true, noremap = true },
       { '<leader>gs',  ':Telescope git_status<CR>',                                                     silent = true, noremap = true },
@@ -279,6 +281,7 @@ return {
       })
 
       ts.load_extension('fzf')
+      ts.load_extension('recent_files')
     end
   },
   {
