@@ -1,5 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
+  "aider.vim": { "branch": "main", "commit": "eb088d1d5e856174e6694bc3d3b7050e89cfd4f2" },
   "ale": { "branch": "master", "commit": "dd23b92ee9bfb6d790b6018ac1e52ba040649666" },
   "avante.nvim": { "branch": "main", "commit": "d698dbe17ad94a0efde2355266e5afacb3851163" },
   "barbar.nvim": { "branch": "master", "commit": "807bede7ef1d8e2ac5f108e9ac8123b1e2d321e3" },

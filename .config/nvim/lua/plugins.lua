@@ -963,5 +963,40 @@ return {
         },
       })
     end
+  },
+  {
+    "nekowasabi/aider.vim",
+    dependencies = "vim-denops/denops.vim",
+    event = 'VeryLazy',
+    keys = {
+      { '<leader>Ar', ':AiderRun<CR>',                          silent = true, noremap = true },
+      { '<leader>Ab', ':AiderSilentAddCurrentFile<CR>',         silent = true, noremap = true },
+      { '<leader>AB', ':AiderSilentAddCurrentFileReadOnly<CR>', silent = true, noremap = true },
+      { '<leader>Aa', ':AiderAddBuffers<CR>',                   silent = true, noremap = true },
+      { '<leader>Ae', ':AiderVisualTextWithPrompt<CR>',         silent = true, noremap = true, mode = { 'v' } },
+      { '<leader>Aw', ':AiderAddWeb<CR>',                       silent = true, noremap = true },
+      { '<leader>Aq', ':AiderExit<CR>',                         silent = true, noremap = true },
+      { '<leader>Ah', ':AiderHide<CR>',                         silent = true, noremap = true },
+      { '<leader>Av', ':AiderVoice<CR>',                        silent = true, noremap = true },
+    },
+    config = function()
+      vim.g.aider_command = 'aider --architect --model o3-mini --reasoning-effort high --no-auto-commits --no-gitignore'
+      vim.g.aider_buffer_open_type = 'floating'
+      vim.g.aider_floatwin_width = 100
+      vim.g.aider_floatwin_height = 20
+
+      vim.api.nvim_create_autocmd(
+        'User',
+        {
+          pattern = 'AiderOpen',
+          callback = function(args)
+            vim.keymap.set('n', 'q', '<cmd>AiderHide<CR>', { buffer = args.buf })
+            vim.keymap.set('n', '<C-c>', '<cmd>AiderHide<CR>', { buffer = args.buf })
+            vim.keymap.set('t', '<C-c>', '<cmd>AiderHide<CR>', { buffer = args.buf })
+            vim.keymap.set('t', '<C-d>', '<cmd>AiderHide<CR>', { buffer = args.buf })
+          end
+        }
+      )
+    end
   }
 }
