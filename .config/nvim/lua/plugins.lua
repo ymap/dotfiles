@@ -320,7 +320,8 @@ return {
       "fang2hou/blink-copilot",
       "Kaiser-Yang/blink-cmp-git",
       "disrupted/blink-cmp-conventional-commits",
-      'Kaiser-Yang/blink-cmp-avante',
+      "Kaiser-Yang/blink-cmp-avante",
+      "moyiz/blink-emoji.nvim",
       { "saghen/blink.compat",    version = '*' },
       { "tzachar/cmp-tabnine",    build = './install.sh' },
       { 'uga-rosa/cmp-skkeleton', dependencies = { 'skkeleton' } },
@@ -329,6 +330,7 @@ return {
       sources = {
         default = {
           'avante',
+          'emoji',
           'skkeleton',
           'copilot',
           'cmp_tabnine',
@@ -384,6 +386,10 @@ return {
             name = 'Conventional Commits',
             module = 'blink-cmp-conventional-commits',
             async = true,
+          },
+          emoji = {
+            name = "emoji",
+            module = "blink-emoji",
           },
           avante = {
             name = 'Avante',
