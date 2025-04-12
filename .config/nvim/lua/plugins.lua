@@ -326,7 +326,6 @@ return {
       "Kaiser-Yang/blink-cmp-avante",
       "moyiz/blink-emoji.nvim",
       { "saghen/blink.compat",    version = '*' },
-      { "tzachar/cmp-tabnine",    build = './install.sh' },
       { 'uga-rosa/cmp-skkeleton', dependencies = { 'skkeleton' } },
     },
     opts = {
@@ -336,15 +335,14 @@ return {
           'emoji',
           'skkeleton',
           'copilot',
-          'cmp_tabnine',
           'snippets',
           'lsp',
         },
         per_filetype = {
-          sql = { 'dadbod', 'copilot', 'cmp_tabnine' },
-          mysql = { 'dadbod', 'copilot', 'cmp_tabnine' },
-          gitcommit = { 'conventional_commits', 'git', 'copilot', 'cmp_tabnine', 'path' },
-          AvanteInput = { 'avante', 'skkeleton', 'copilot', 'cmp_tabnine', 'path', 'buffer' }
+          sql = { 'dadbod', 'copilot' },
+          mysql = { 'dadbod', 'copilot' },
+          gitcommit = { 'conventional_commits', 'git', 'copilot', 'path' },
+          AvanteInput = { 'avante', 'skkeleton', 'copilot', 'path', 'buffer' }
         },
         providers = {
           skkeleton = {
@@ -358,16 +356,6 @@ return {
             module = "blink-copilot",
             score_offset = 100,
             async = true,
-          },
-          cmp_tabnine = {
-            name = "cmp_tabnine",
-            module = 'blink.compat.source',
-            score_offset = 100,
-            max_items = 2,
-            async = true,
-            opts = {
-              run_on_every_keystroke = true,
-            }
           },
           lsp = {
             name = "lsp",
