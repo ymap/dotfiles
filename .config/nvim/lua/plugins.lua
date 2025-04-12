@@ -813,18 +813,6 @@ return {
     end,
   },
   {
-    'napisani/nvim-dadbod-bg',
-    dependencies = 'vim-dadbod',
-    build = './install.sh',
-    keys = {
-      { '<leader><CR>', ':!open http://localhost:4546<CR>', ft = { 'dbui', 'dbout' }, silent = true, noremap = true },
-    },
-    config = function()
-      vim.g.nvim_dadbod_bg_port = 4546
-      vim.g.nvim_dadbod_bg_log_file = '~/.cache/nvim-dadbod-bg.log'
-    end,
-  },
-  {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
       'vim-dadbod',
