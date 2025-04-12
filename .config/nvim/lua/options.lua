@@ -137,6 +137,16 @@ local autocmds = {
       callback = function() vim.bo.filetype = "bash" end
     },
   },
+  {
+    {
+      "BufNewFile",
+      "BufRead",
+    },
+    {
+      pattern = "*.ypp",
+      callback = function() vim.bo.filetype = "yacc" end
+    },
+  },
 }
 
 for _, args in ipairs(autocmds) do vim.api.nvim_create_autocmd(unpack(args)) end
