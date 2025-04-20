@@ -558,11 +558,13 @@ return {
     'mhinz/vim-startify',
     config = function()
       vim.g.startify_disable_at_vimenter = 0
-      vim.g.startify_custom_header = vim.fn['startify#center'](
-        vim.fn['startify#fortune#boxed'](
-          vim.fn.readfile(vim.fn.fnamemodify("~/.cache/junkfile/kaizen.md", ":p"))
+      if vim.fn.filereadable(vim.fn.fnamemodify("~/.cache/junkfile/kaizen.md", ":p")) == 1 then
+        vim.g.startify_custom_header = vim.fn['startify#center'](
+          vim.fn['startify#fortune#boxed'](
+            vim.fn.readfile(vim.fn.fnamemodify("~/.cache/junkfile/kaizen.md", ":p"))
+          )
         )
-      )
+      end
       vim.g.startify_list_order = { 'sessions' }
       vim.g.startify_session_persistence = 1
       vim.g.startify_custom_indices = { 's' }
