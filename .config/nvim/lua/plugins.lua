@@ -202,6 +202,7 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-ghq.nvim',
       'smartpde/telescope-recent-files',
+      'tsakirist/telescope-lazy.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     keys = {
@@ -211,6 +212,7 @@ return {
       { '<leader>bb',  ':Telescope buffers<CR>',                                                        silent = true, noremap = true },
       { '<leader>v',   ':Telescope find_files cwd=~/.config/nvim<CR>',                                  silent = true, noremap = true },
       { '<leader>h',   ':Telescope help_tags<CR>',                                                      silent = true, noremap = true },
+      { '<leader>l',   ':Telescope lazy<CR>',                                                           silent = true, noremap = true },
       { '<leader>re',  ':Telescope recent_files<CR>',                                                   silent = true, noremap = true },
       { '<leader>gh',  ':Telescope ghq<CR>',                                                            silent = true, noremap = true },
       { '<leader>gc',  ':Telescope git_commits<CR>',                                                    silent = true, noremap = true },
