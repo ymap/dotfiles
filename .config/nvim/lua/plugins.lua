@@ -864,66 +864,58 @@ return {
     end,
   },
   {
-    "yetone/avante.nvim",
+    "olimorris/codecompanion.nvim",
     event = "VeryLazy",
-    lazy = false,
-    version = false,
-    build = "make",
     keys = {
-      {
-        '<leader>e',
-        function()
-          vim.cmd('normal! vip'); require("avante.api").edit()
-        end,
-        mode = { "n" },
-        silent = true,
-        noremap = true
-      },
-      { '<leader>e', function() require("avante.api").edit() end, mode = { "v" }, silent = true, noremap = true },
+      { "<leader>aa", "<cmd>CodeCompanionActions<CR>",     silent = true,       noremap = true },
+      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", mode = { "n", "v" }, silent = true, noremap = true },
+      { "<leader>aC", "<cmd>CodeCompanionChat Add<CR>",    mode = { "v" },      silent = true, noremap = true },
+      { "<leader>ae", "<cmd>CodeCompanion<CR>",            mode = { "n", "v" }, silent = true, noremap = true },
     },
     dependencies = {
-      "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
-      {
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
+      "nvim-treesitter/nvim-treesitter",
+      "j-hui/fidget.nvim",
+    },
+    config = function()
+      require("codecompanion").setup({
+        adapters = {
+          openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+              schema = {
+                model = {
+                  default = "o4-mini",
+                },
+              },
+            })
+          end,
+        },
+        strategies = {
+          chat = {
+            adapter = "openai",
+            keymaps = {
+              close = {
+                modes = { n = "<Nop>", i = "<Nop>" },
+              },
+            }
+          },
+          inline = {
+            adapter = "openai",
+          },
+          cmd = {
+            adapter = "openai",
           },
         },
-      },
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-    opts = {
-      provider = "openai",
-      behaviour = {
-        enable_cursor_planning_mode = true,
-      },
-      openai = {
-        endpoint = "https://api.openai.com/v1",
-        model = "o3-mini",
-        timeout = 30000,
-        temperature = 0,
-      },
-      windows = {
-        position = "left",
-        wrap = true,
-      },
-      system_prompt = "Always respond in Japanese!"
-    },
+        display = {
+          inline = {
+            layout = "buffer"
+          }
+        }
+      })
+    end,
+    init = function()
+      require("plugins.codecompanion.fidget-spinner"):init()
+    end,
   },
   {
     "ravitemer/mcphub.nvim",
