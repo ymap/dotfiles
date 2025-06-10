@@ -963,7 +963,8 @@ return {
       { '<leader>Av', ':AiderVoice<CR>',                        silent = true, noremap = true },
     },
     config = function()
-      vim.g.aider_command = 'aider --architect --model o3-mini --reasoning-effort high --no-auto-commits --no-gitignore'
+      vim.g.aider_command =
+      'aider --architect --model o4-mini --reasoning-effort high --notifications --no-auto-commits --no-gitignore'
       vim.g.aider_buffer_open_type = 'floating'
       vim.g.aider_floatwin_width = 100
       vim.g.aider_floatwin_height = 20
