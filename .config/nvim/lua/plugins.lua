@@ -880,6 +880,20 @@ return {
     config = function()
       require("codecompanion").setup({
         adapters = {
+          openrouter = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              env = {
+                url = "https://openrouter.ai/api",
+                api_key = "OPENROUTER_API_KEY",
+                chat_url = "/v1/chat/completions",
+              },
+              schema = {
+                model = {
+                  default = "deepseek/deepseek-r1:free",
+                },
+              },
+            })
+          end,
           openai = function()
             return require("codecompanion.adapters").extend("openai", {
               schema = {
