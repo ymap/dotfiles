@@ -7,7 +7,12 @@ return {
     end,
     priority = 1000,
   },
-  { 'rcarriga/nvim-notify' },
+  {
+    'rcarriga/nvim-notify',
+    config = function()
+      vim.notify = require("notify")
+    end
+  },
   { 'kana/vim-textobj-user' },
   { 'rickhowe/diffchar.vim' },
   { 'tpope/vim-projectionist' },
@@ -988,5 +993,23 @@ return {
         }
       )
     end
-  }
+  },
+  {
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    opts = {
+      max_count = 99999,
+      disable_mouse = false,
+      disabled_keys = {
+        ["<Up>"] = false,
+        ["<Down>"] = false,
+        ["<Left>"] = false,
+        ["<Right>"] = false,
+      },
+    },
+  },
 }
