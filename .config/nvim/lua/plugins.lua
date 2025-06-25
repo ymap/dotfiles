@@ -903,7 +903,7 @@ return {
             return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
-                  default = "o4-mini",
+                  default = "o3",
                 },
               },
             })
@@ -975,7 +975,7 @@ return {
     },
     config = function()
       vim.g.aider_command =
-      'aider --architect --model o4-mini --reasoning-effort high --notifications --no-auto-commits --no-gitignore'
+      'aider --architect --model o3 --reasoning-effort high --notifications --no-auto-commits --no-gitignore'
       vim.g.aider_buffer_open_type = 'floating'
       vim.g.aider_floatwin_width = 100
       vim.g.aider_floatwin_height = 20
