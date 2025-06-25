@@ -432,18 +432,10 @@ return {
     config = function() require('fidget').setup({}) end
   },
   {
-    'echasnovski/mini.animate',
-    opts = function()
-      local animate = require("mini.animate")
-      return {
-        resize = {
-          timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
-        },
-        scroll = {
-          enable = false,
-        },
-      }
-    end,
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      smear_between_neighbor_lines = false,
+    },
   },
   {
     "zbirenbaum/copilot.lua",
