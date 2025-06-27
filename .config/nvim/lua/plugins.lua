@@ -9,6 +9,9 @@ return {
   },
   {
     'rcarriga/nvim-notify',
+    keys = {
+      { "<leader>n", function() vim.notify.dismiss() end, silent = true, noremap = true },
+    },
     config = function()
       vim.notify = require("notify")
     end
