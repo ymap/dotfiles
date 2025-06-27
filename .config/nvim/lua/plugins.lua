@@ -32,6 +32,7 @@ return {
   { 'delphinus/vim-auto-cursorline' },
   { 'vim-denops/denops.vim' },
   { 'Darazaki/indent-o-matic' },
+  { "sphamba/smear-cursor.nvim" },
   {
     'rbtnn/vim-ambiwidth',
     lazy = false,
@@ -433,12 +434,6 @@ return {
   {
     'j-hui/fidget.nvim',
     config = function() require('fidget').setup({}) end
-  },
-  {
-    "sphamba/smear-cursor.nvim",
-    opts = {
-      smear_between_neighbor_lines = false,
-    },
   },
   {
     "zbirenbaum/copilot.lua",
