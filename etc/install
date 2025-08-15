@@ -19,3 +19,7 @@ ln -s "$DOTFILES_REPOSITORY_DIR/.tmux.conf" "$HOME/.tmux.conf"
 ln -s "$DOTFILES_REPOSITORY_DIR/.config" "$HOME/.config"
 ln -s "$DOTFILES_REPOSITORY_DIR/.gitconfig" "$HOME/.gitconfig" ||
   (git config user.name $(git config -f .gitconfig user.name);git config user.email $(git config -f .gitconfig user.email))
+
+mkdir -p "$DOTFILES_REPOSITORY_DIR/.config/skk"
+curl -fsSL https://skk-dev.github.io/dict/SKK-JISYO.L.gz |
+  gunzip > "$DOTFILES_REPOSITORY_DIR/.config/skk/SKK-JISYO.L"
