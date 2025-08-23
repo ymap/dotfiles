@@ -984,4 +984,20 @@ return {
       )
     end
   },
+  {
+    "coder/claudecode.nvim",
+    config = true,
+    keys = {
+      { "<leader>cc", "<cmd>ClaudeCode --continue<CR>" },
+      { "<leader>cr", "<cmd>ClaudeCode --resume<CR>" },
+      { "<leader>cs", "<cmd>ClaudeCodeAdd %<CR>",      mode = "n" },
+      { "<leader>cs", "<cmd>ClaudeCodeSend<CR>",       mode = "v" },
+      { "<leader>cs", "<cmd>ClaudeCodeTreeAdd<CR>",    mode = "n", ft = "oil" },
+    },
+    opts = {
+      terminal = {
+        show_native_term_exit_tip = false,
+      },
+    }
+  }
 }
