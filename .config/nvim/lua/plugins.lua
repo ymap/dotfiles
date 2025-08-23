@@ -221,7 +221,7 @@ return {
       { '<leader>bb',  ':Telescope buffers<CR>',                                                        silent = true, noremap = true },
       { '<leader>v',   ':Telescope find_files cwd=~/.config/nvim<CR>',                                  silent = true, noremap = true },
       { '<leader>h',   ':Telescope help_tags<CR>',                                                      silent = true, noremap = true },
-      { '<leader>l',   ':Telescope lazy<CR>',                                                           silent = true, noremap = true },
+      { '<leader>la',  ':Telescope lazy<CR>',                                                           silent = true, noremap = true },
       { '<leader>re',  ':Telescope recent_files<CR>',                                                   silent = true, noremap = true },
       { '<leader>gh',  ':Telescope ghq<CR>',                                                            silent = true, noremap = true },
       { '<leader>gc',  ':Telescope git_commits<CR>',                                                    silent = true, noremap = true },
@@ -998,6 +998,14 @@ return {
       terminal = {
         show_native_term_exit_tip = false,
       },
+    }
+  },
+  {
+    "AndrewRadev/linediff.vim",
+    keys = {
+      { '<leader>ld', ':Linediff<CR>',             mode = "x",    silent = true, noremap = true },
+      { '<leader>lr', ':LinediffReset<CR>',        mode = "n",    silent = true, noremap = true },
+      { '<leader>ld', '<plug>(linediff-operator)', silent = true, noremap = true },
     }
   }
 }
