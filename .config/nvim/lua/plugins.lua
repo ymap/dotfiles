@@ -742,8 +742,8 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { "BufReadPost", "BufNewFile" },
     dependencies = { 'RRethy/nvim-treesitter-endwise' },
+    lazy = false,
     build = ':TSUpdate',
     opts = {
       auto_install = true,
@@ -755,7 +755,6 @@ return {
       },
       endwise = { enable = true },
     },
-    config = function(_, opts) require('nvim-treesitter.configs').setup(opts) end
   },
   {
     "ray-x/lsp_signature.nvim",
