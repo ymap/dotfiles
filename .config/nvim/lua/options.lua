@@ -34,6 +34,7 @@ local options = {
   scrollback    = 100000,
   scrolloff     = 9999,
   shada         = { '!', "'100", '<50', 's10', 'h' },
+  shell         = 'bash',
   shiftround    = true,
   shiftwidth    = 2,
   shortmess     = 'aTIc',
