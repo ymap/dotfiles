@@ -23,3 +23,5 @@ ln -s "$DOTFILES_REPOSITORY_DIR/.gitconfig" "$HOME/.gitconfig" ||
 mkdir -p "$DOTFILES_REPOSITORY_DIR/.config/skk"
 curl -fsSL https://skk-dev.github.io/dict/SKK-JISYO.L.gz |
   gunzip > "$DOTFILES_REPOSITORY_DIR/.config/skk/SKK-JISYO.L"
+
+echo "source $DOTFILES_REPOSITORY_DIR/.bashrc" >> $HOME/.bashrc
