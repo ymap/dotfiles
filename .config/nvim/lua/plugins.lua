@@ -892,7 +892,7 @@ return {
             return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
-                  default = "gpt-5",
+                  default = "gpt-5.2",
                 },
               },
             })
@@ -968,7 +968,7 @@ return {
     },
     config = function()
       vim.g.aider_command =
-      'aider --architect --model gpt-5 --reasoning-effort high --notifications --no-auto-commits --no-gitignore'
+      'aider --architect --model gpt-5.2 --reasoning-effort high --notifications --no-auto-commits --no-gitignore'
       vim.g.aider_buffer_open_type = 'floating'
       vim.g.aider_floatwin_width = 100
       vim.g.aider_floatwin_height = 20
