@@ -869,7 +869,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "j-hui/fidget.nvim",
+      "lalitmee/codecompanion-spinners.nvim",
     },
     config = function()
       require("codecompanion").setup({
@@ -918,12 +918,16 @@ return {
           inline = {
             layout = "buffer"
           }
-        }
+        },
+        extensions = {
+          spinner = {
+            opts = {
+              style = "fidget",
+            },
+          },
+        },
       })
-    end,
-    init = function()
-      require("plugins.codecompanion.fidget-spinner"):init()
-    end,
+    end
   },
   {
     "ravitemer/mcphub.nvim",
