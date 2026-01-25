@@ -15,8 +15,13 @@ fi
 
 git clone "$DOTFILES_REPOSITORY_URL" "$DOTFILES_REPOSITORY_DIR"
 
+mkdir -p "$HOME/.config"
+for path in "$DOTFILES_REPOSITORY_DIR"/.config/*; do
+  ln -s "$path" "$HOME/.config"
+done
+
 ln -s "$DOTFILES_REPOSITORY_DIR/.tmux.conf" "$HOME/.tmux.conf"
-ln -s "$DOTFILES_REPOSITORY_DIR/.config" "$HOME/.config"
+
 ln -s "$DOTFILES_REPOSITORY_DIR/.gitconfig" "$HOME/.gitconfig" ||
   (git config user.name $(git config -f .gitconfig user.name);git config user.email $(git config -f .gitconfig user.email))
 
