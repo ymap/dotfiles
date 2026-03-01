@@ -3,7 +3,7 @@ FROM ubuntu:latest
 ENV EDITOR=nvim
 ENV LC_CTYPE=ja_JP.UTF-8
 ENV MAKEFLAGS=-j2
-ENV WWW_HOME=https://google.com
+ENV WWW_HOME=https://lite.duckduckgo.com/lite/
 
 RUN apt-get update && apt-get install -y \
   bear \
